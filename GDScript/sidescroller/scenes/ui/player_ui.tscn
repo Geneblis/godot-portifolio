@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://di7012ditif8w"]
+
+[ext_resource type="Theme" uid="uid://c8b8d14gc08dw" path="res://scenes/ui/tema_pausa.tres" id="1_kf3th"]
+[ext_resource type="Script" path="res://scripts/player_ui.gd" id="2_orbsr"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("2_orbsr")
+
+[node name="PlayerUI" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HpTextLabel" type="RichTextLabel" parent="PlayerUI"]
+layout_mode = 2
+theme = ExtResource("1_kf3th")
+text = "HP: 100"
+
+[node name="PlayerAmmoUI" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 29.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="AmmoTextLabel" type="RichTextLabel" parent="PlayerAmmoUI"]
+layout_mode = 2
+theme = ExtResource("1_kf3th")
+text = "AMMO: 10/10"
+
+[node name="UpdateHudTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="UpdateHudTimer" to="." method="_on_update_hud_timer_timeout"]

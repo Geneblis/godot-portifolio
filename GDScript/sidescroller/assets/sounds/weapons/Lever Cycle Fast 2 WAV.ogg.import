@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c5g8kdd16yyiu"
+path="res://.godot/imported/Lever Cycle Fast 2 WAV.ogg-e68bfb99f33376519ebe307896e12534.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sounds/weapons/Lever Cycle Fast 2 WAV.ogg"
+dest_files=["res://.godot/imported/Lever Cycle Fast 2 WAV.ogg-e68bfb99f33376519ebe307896e12534.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

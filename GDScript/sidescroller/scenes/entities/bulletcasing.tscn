@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpxbhn7t8rtkd"]
+
+[ext_resource type="Script" path="res://scripts/bullet_casing.gd" id="1_8hjyb"]
+[ext_resource type="Texture2D" uid="uid://bvijhbfw78xdc" path="res://assets/Sprites/space-marine/PNG/bullet-casing.png" id="2_2o3hg"]
+[ext_resource type="PackedScene" uid="uid://cd17v5tu4k2je" path="res://scenes/base/healthmodule.tscn" id="3_41jrt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_otqbh"]
+radius = 3.0
+height = 22.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+collision_layer = 0
+mass = 0.25
+gravity_scale = 0.5
+script = ExtResource("1_8hjyb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+visibility_layer = 0
+rotation = 1.5708
+scale = Vector2(0.3, 0.3)
+shape = SubResource("CapsuleShape2D_otqbh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_2o3hg")
+
+[node name="ExistanceTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="healthmodule" parent="." instance=ExtResource("3_41jrt")]
+max_health = 999
+
+[connection signal="timeout" from="ExistanceTimer" to="." method="_on_existance_timer_timeout"]

@@ -1,0 +1,200 @@
+[gd_scene load_steps=12 format=4 uid="uid://86l0l28s2qo7"]
+
+[ext_resource type="PackedScene" uid="uid://cun7oi508fs4k" path="res://scenes/levels/1st_world_assets.tscn" id="1_1cls1"]
+[ext_resource type="Texture2D" uid="uid://bw3lg64hrnmfi" path="res://assets/Environments/alien-environment/PNG/layers/tileset.png" id="2_d3qnn"]
+[ext_resource type="Texture2D" uid="uid://bcv4hxumh27wg" path="res://assets/Environments/alien-environment/PNG/layers/back-structures.png" id="2_etrl3"]
+[ext_resource type="PackedScene" uid="uid://couuw2bdowjdr" path="res://scenes/entities/player.tscn" id="3_eyi17"]
+[ext_resource type="Script" path="res://scripts/player_camera.gd" id="4_wox8a"]
+[ext_resource type="PackedScene" uid="uid://bvxgypqu4vrck" path="res://scenes/entities/melee_enemy.tscn" id="5_6mxc4"]
+[ext_resource type="PackedScene" uid="uid://b7kql10alpmc4" path="res://scenes/ui/damage_canvas.tscn" id="5_fe60k"]
+[ext_resource type="PackedScene" uid="uid://di7012ditif8w" path="res://scenes/ui/player_ui.tscn" id="6_uesge"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_af525"]
+texture = ExtResource("2_d3qnn")
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:2/0 = 0
+7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.25, 8, 0.375, 8, 8, -8, 8)
+8:2/0 = 0
+8:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.25, 8, 0.375, 8, 8, -8, 8)
+9:2/0 = 0
+9:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.25, 8, 0.375, 8, 8, -8, 8)
+10:2/0 = 0
+10:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.25, 8, 0.375, 8, 8, -8, 8)
+11:2/0 = 0
+11:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.25, 8, 0.375, 8, 8, -8, 8)
+12:2/0 = 0
+12:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.25, 8, 0.375, 8, 8, -8, 8)
+4:3/0 = 0
+5:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+12:4/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+12:5/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+7:7/0 = 0
+7:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+8:7/0 = 0
+8:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+9:7/0 = 0
+9:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+10:7/0 = 0
+10:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+11:7/0 = 0
+11:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+12:7/0 = 0
+12:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:8/0 = 0
+2:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:8/0 = 0
+3:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:8/0 = 0
+4:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:8/0 = 0
+5:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:8/0 = 0
+8:8/0 = 0
+9:8/0 = 0
+10:8/0 = 0
+11:8/0 = 0
+12:8/0 = 0
+4:9/0 = 0
+5:9/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+10:9/0 = 0
+11:9/0 = 0
+12:9/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_etouw"]
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_af525")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_an2q0"]
+
+[node name="playableworld" type="Node2D"]
+
+[node name="Tiles" type="Node2D" parent="."]
+
+[node name="1worldbackground" parent="Tiles" instance=ExtResource("1_1cls1")]
+show_behind_parent = true
+light_mask = 0
+tile_map_data = PackedByteArray("AADc/wAAAAAHAAcAAADd/wAAAAAHAAcAAADb////AAAJAAcAAADc////AAAIAAcAAADd////AAAJAAcAAADe////AAAKAAcAAADf////AAALAAcAAADZ////AAAHAAcAAADa////AAAIAAcAAAA=")
+
+[node name="1worldwalkable3" type="TileMapLayer" parent="Tiles/1worldbackground"]
+visibility_layer = 3
+position = Vector2(13, 17)
+tile_map_data = PackedByteArray("AADV/wAAAAAEAAMAAADW/wAAAAAFAAMAAADV/wEAAAAEAAQAAADV/wIAAAAEAAkAAADV/wMAAAAEAAoAAADW/wEAAAAFAAQAAADW/wIAAAAFAAMAAADW/wMAAAAFAAoAAADV/wQAAAAEAAMAAADV/wUAAAAEAAQAAADV/wYAAAAEAAUAAADW/wQAAAAFAAMAAADW/wUAAAAFAAQAAADW/wYAAAAFAAUAAADa/wAAAAAMAAgAAADa/wEAAAAMAAkAAADa/wIAAAAMAAgAAADa/wMAAAAMAAgAAADa/wQAAAAMAAgAAADa/wUAAAAMAAkAAADX/wAAAAAJAAgAAADX/wEAAAAJAAkAAADY/wAAAAAKAAgAAADY/wEAAAAKAAkAAADZ/wAAAAALAAgAAADZ/wEAAAALAAkAAAA=")
+tile_set = SubResource("TileSet_etouw")
+
+[node name="1worldwalkable2" type="TileMapLayer" parent="Tiles/1worldbackground"]
+visibility_layer = 3
+position = Vector2(13, 17)
+tile_map_data = PackedByteArray("AADV/wAAAAAEAAMAAADW/wAAAAAFAAMAAADV/wEAAAAEAAQAAADV/wIAAAAEAAkAAADV/wMAAAAEAAoAAADW/wEAAAAFAAQAAADW/wIAAAAFAAMAAADW/wMAAAAFAAoAAADV/wQAAAAEAAMAAADV/wUAAAAEAAQAAADV/wYAAAAEAAUAAADW/wQAAAAFAAMAAADW/wUAAAAFAAQAAADW/wYAAAAFAAUAAADa/wAAAAAMAAgAAADa/wEAAAAMAAkAAADa/wIAAAAMAAgAAADa/wMAAAAMAAgAAADa/wQAAAAMAAgAAADa/wUAAAAMAAkAAADX/wAAAAAJAAgAAADX/wEAAAAJAAkAAADY/wAAAAAKAAgAAADY/wEAAAAKAAkAAADZ/wAAAAALAAgAAADZ/wEAAAALAAkAAAA=")
+tile_set = SubResource("TileSet_etouw")
+
+[node name="1worldwalkable" type="TileMapLayer" parent="Tiles/1worldbackground"]
+visibility_layer = 3
+position = Vector2(13, 17)
+tile_map_data = PackedByteArray("AADV/wAAAAAHAAgAAADW/wAAAAAIAAgAAADV/wEAAAAHAAkAAADV/wIAAAAEAAkAAADV/wMAAAAEAAoAAADW/wEAAAAIAAkAAADW/wIAAAAFAAMAAADW/wMAAAAFAAoAAADV/wQAAAAEAAMAAADV/wUAAAAEAAQAAADV/wYAAAAEAAUAAADW/wQAAAAFAAMAAADW/wUAAAAFAAQAAADW/wYAAAAFAAUAAADV//7/AAACAAcAAADW//7/AAADAAcAAADX//7/AAAJAAYAAADY//7/AAAKAAYAAADZ//7/AAALAAYAAADa//7/AAAMAAYAAADV////AAACAAgAAADW////AAADAAgAAADX////AAAJAAcAAADX/wAAAAAJAAgAAADY////AAAKAAcAAADY/wAAAAAKAAgAAADZ////AAALAAcAAADZ/wAAAAALAAgAAADa////AAAMAAcAAADa/wAAAAAMAAgAAADa/wEAAAAMAAgAAADa/wIAAAAMAAkAAADV//3/AAACAAYAAADW//3/AAADAAYAAADX/wEAAAAJAAkAAADY/wEAAAAKAAkAAADZ/wEAAAALAAkAAAA=")
+tile_set = SubResource("TileSet_etouw")
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="player" parent="Entities" instance=ExtResource("3_eyi17")]
+position = Vector2(-627, -37)
+
+[node name="Camera2D2" type="Camera2D" parent="Entities/player"]
+scale = Vector2(1, 1.04)
+zoom = Vector2(3.43, 3.43)
+limit_left = -670
+limit_top = -95
+limit_right = 670
+limit_bottom = 80
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 12.0
+editor_draw_limits = true
+script = ExtResource("4_wox8a")
+shake_duration = 0.15
+shake_intensity = 3.0
+
+[node name="DamageCanvas" parent="Entities/player/Camera2D2" instance=ExtResource("5_fe60k")]
+
+[node name="PlayerUI" parent="Entities/player/Camera2D2" instance=ExtResource("6_uesge")]
+
+[node name="EnemyEntities" type="Node2D" parent="Entities"]
+
+[node name="meleeenemy" parent="Entities/EnemyEntities" instance=ExtResource("5_6mxc4")]
+position = Vector2(266, 40)
+
+[node name="meleeenemy2" parent="Entities/EnemyEntities" instance=ExtResource("5_6mxc4")]
+position = Vector2(-28, -37)
+
+[node name="meleeenemy3" parent="Entities/EnemyEntities" instance=ExtResource("5_6mxc4")]
+position = Vector2(-223, 27)
+
+[node name="worldsendSprite" type="Sprite2D" parent="Entities/EnemyEntities"]
+show_behind_parent = true
+position = Vector2(0, 167)
+scale = Vector2(1, 0.982955)
+texture = ExtResource("2_etrl3")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities/EnemyEntities/worldsendSprite"]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(-4.76837e-07, -88)
+
+[node name="worldsend" type="CollisionShape2D" parent="Entities/EnemyEntities/worldsendSprite/StaticBody2D"]
+position = Vector2(0, -3.57628e-07)
+shape = SubResource("WorldBoundaryShape2D_an2q0")
+
+[connection signal="player_camera_shake" from="Entities/player" to="Entities/player/Camera2D2" method="_on_player_player_camera_shake"]

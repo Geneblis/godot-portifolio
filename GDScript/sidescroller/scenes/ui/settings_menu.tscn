@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://4mf0cpxbikex"]
+
+[ext_resource type="Script" path="res://scripts/settings_menu.gd" id="1_54qi3"]
+[ext_resource type="Theme" uid="uid://c8b8d14gc08dw" path="res://scenes/ui/tema_pausa.tres" id="2_5jn5r"]
+
+[node name="SettingsMenu" type="CanvasLayer"]
+process_mode = 3
+editor_description = "lembre-se de sempre setar o process para Always!!"
+layer = 2
+script = ExtResource("1_54qi3")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="PanelContainer" parent="MarginContainer"]
+modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("2_5jn5r")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "     OPTIONS"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WindowControlLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Window Mode:"
+
+[node name="WindowModeSelector" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_5jn5r")
+selected = 1
+item_count = 2
+popup/item_0/text = "Off"
+popup/item_1/text = "On"
+popup/item_1/id = 1
+
+[node name="ResolutionControlLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resolution:"
+
+[node name="ResolutionScreenSelector" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_5jn5r")
+selected = 0
+item_count = 2
+popup/item_0/text = "1152x648"
+popup/item_1/text = "800x600"
+popup/item_1/id = 1
+
+[node name="VolumeControLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volume: 100%"
+
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+value = 100.0
+
+[node name="ScreenShakeConfig" type="CheckBox" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Screenshake"
+
+[node name="Exit" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Return"
+
+[connection signal="item_selected" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/WindowModeSelector" to="." method="_on_window_mode_selected"]
+[connection signal="item_selected" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ResolutionScreenSelector" to="." method="_on_resolution_screen_selected"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/VolumeSlider" to="." method="_on_sound_slider_value_changed"]
+[connection signal="toggled" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScreenShakeConfig" to="." method="_on_screen_shake_toggled"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
