@@ -1,18 +1,7 @@
 extends Control
 @onready var label: Label = $Label
+var random_directive_damage: float
 
-
-func _ready() -> void:	
-	var random_directive_1 = randi_range(5, -5)
-	label.position.x = random_directive_1
-	
-	var random_directive_2 = randi_range(5, -5)
-	label.position.y = random_directive_2
-
-#cool shit
-#func _process(delta: float) -> void:
-#	var random_directive_1 = randi_range(10, -10)
-#	label.position.x = random_directive_1
-#	
-#	var random_directive_2 = randi_range(10, -10)
-#	label.position.y = random_directive_2
+func _process(delta: float) -> void:
+	random_directive_damage = (random_directive_damage + -0.5)
+	label.position.y = random_directive_damage

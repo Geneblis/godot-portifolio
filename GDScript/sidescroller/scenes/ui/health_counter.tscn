@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bygek7lemburj"]
+[gd_scene load_steps=6 format=3 uid="uid://c7kmtv00els1s"]
 
-[ext_resource type="Script" path="res://scripts/damage_counter.gd" id="1_36hml"]
-[ext_resource type="Theme" uid="uid://c8b8d14gc08dw" path="res://scenes/ui/tema_pausa.tres" id="2_nvxpp"]
+[ext_resource type="Script" path="res://scripts/health_counter.gd" id="1_yetsg"]
+[ext_resource type="Theme" uid="uid://c8b8d14gc08dw" path="res://scenes/ui/tema_pausa.tres" id="2_s2uj4"]
 
 [sub_resource type="Animation" id="Animation_y3vgx"]
 length = 0.001
@@ -77,7 +77,7 @@ _data = {
 "damage_anim": SubResource("Animation_ujyw6")
 }
 
-[node name="DamageCounter" type="Control"]
+[node name="HealthCounter" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -85,14 +85,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
-script = ExtResource("1_36hml")
+script = ExtResource("1_yetsg")
 
 [node name="Label" type="Label" parent="."]
-self_modulate = Color(1, 0, 0, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-theme = ExtResource("2_nvxpp")
+theme = ExtResource("2_s2uj4")
 text = "0"
 
 [node name="AnimationTree" type="AnimationPlayer" parent="."]

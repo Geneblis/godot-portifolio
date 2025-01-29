@@ -76,6 +76,7 @@ value = 100.0
 
 [node name="ScreenShakeConfig" type="CheckBox" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+button_pressed = true
 text = "Screenshake"
 
 [node name="Exit" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]

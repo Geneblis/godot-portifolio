@@ -8,6 +8,7 @@ var current_health: int
 @onready var damage_timer: Timer = $DamageTimer
 @onready var blood_particles: CPUParticles2D = $BloodParticles
 const DAMAGE_COUNTER = preload("res://scenes/ui/damage_counter.tscn")
+const HEALTH_COUNTER = preload("res://scenes/ui/health_counter.tscn")
 
 func _ready():
 	current_health = max_health  #sets the entity curr health to its max
@@ -25,10 +26,15 @@ func apply_damage(amount: int) -> void:
 		#function for flash anim
 		flash_red()
 		
-		#damage popup
+		#health popup
+		var health_show = HEALTH_COUNTER.instantiate()
+		self.get_parent().add_child(health_show)
+		health_show.label.text = str(current_health)
+		
+		#damage popupp
 		var damage_show = DAMAGE_COUNTER.instantiate()
 		self.get_parent().add_child(damage_show)
-		damage_show.label.text = str(current_health)
+		damage_show.label.text = ("-" + str(amount))
 		
 		#plays blood particles if it is a humanoid
 		if self.get_parent() is CharacterBody2D:
