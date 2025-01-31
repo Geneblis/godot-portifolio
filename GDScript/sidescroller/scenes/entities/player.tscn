@@ -255,7 +255,6 @@ visibility_layer = 2
 script = ExtResource("1_556t2")
 
 [node name="healthmodule" parent="." instance=ExtResource("2_q1y3r")]
-max_health = 5000
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ksy1b")

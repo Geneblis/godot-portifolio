@@ -11,9 +11,11 @@ config_version=5
 [application]
 
 config/name="sidescroller"
+config/description="A Game where you shoot aliens in a foreign planet."
 config/version="1"
 run/main_scene="res://scenes/ui/mainmenu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.png"
 
 [display]
 
