@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2yqufgy4y1mp"
-path.s3tc="res://.godot/imported/Effect.png-82509ba82cbb1eff53493ef29cdb2a3a.s3tc.ctex"
+uid="uid://pe7a4weirj2g"
+path.s3tc="res://.godot/imported/dark.png-6d46f668c80e231a58e570df85aad257.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Resource/Effect.png"
-dest_files=["res://.godot/imported/Effect.png-82509ba82cbb1eff53493ef29cdb2a3a.s3tc.ctex"]
+source_file="res://textures/dark.png"
+dest_files=["res://.godot/imported/dark.png-6d46f668c80e231a58e570df85aad257.s3tc.ctex"]
 
 [params]
 

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://djxv6bu1bagbx"
-path="res://.godot/imported/Soldier.glb-7f08b59139222a285fd683dd9402c5d5.scn"
+path="res://.godot/imported/Soldier.glb-f628f9083775dc78723514dd2e34631a.scn"
 
 [deps]
 
-source_file="res://Resource/Soldier.glb"
-dest_files=["res://.godot/imported/Soldier.glb-7f08b59139222a285fd683dd9402c5d5.scn"]
+source_file="res://resources/Soldier.glb"
+dest_files=["res://.godot/imported/Soldier.glb-f628f9083775dc78723514dd2e34631a.scn"]
 
 [params]
 
