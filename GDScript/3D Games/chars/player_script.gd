@@ -6,7 +6,9 @@ const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.01
 var gravity = 9.8
 
+@onready var gun: Node3D = $Head/Gun
 @onready var head: Node3D = $Head
+@onready var gun_anim: AnimationPlayer = $Head/Gun/AnimationPlayer
 @onready var camera: Camera3D = $Head/Camera3D
 
 func _ready() -> void:
@@ -43,6 +45,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = lerp(velocity.x, direction.x * SPEED, delta * 2.0)
 		velocity.z = lerp(velocity.z, direction.z * SPEED, delta * 2.0)
-
-
+	
+	if Input.is_action_just_pressed("mouse_1"):
+		if !gun_anim.is_playing():
+			gun_anim.play("Fire")
+	
 	move_and_slide()

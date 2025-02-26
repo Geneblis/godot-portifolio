@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cndlmwoxtxrg4"]
+
+[ext_resource type="PackedScene" uid="uid://blhlysgmo0d43" path="res://resources/Gun.glb" id="1_hps0d"]
+
+[node name="Gun2" instance=ExtResource("1_hps0d")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(-6.20957e-18, 0.0279654, 0.474534)
+bones/0/rotation = Quaternion(-0.707107, -9.18743e-17, -9.18743e-17, 0.707107)
+
+[node name="Cube" parent="Armature/Skeleton3D" index="0"]
+cast_shadow = 0
+ignore_occlusion_culling = true
