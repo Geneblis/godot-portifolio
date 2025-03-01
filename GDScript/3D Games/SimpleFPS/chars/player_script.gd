@@ -12,6 +12,7 @@ var gravity = 9.8
 @onready var camera: Camera3D = $Head/Camera3D
 
 func _ready() -> void:
+	#a252de64feca69264e7d8b2b719ea3bd92c5c2624b10ac28b37a5b60e0653c5f
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 #player usou algum butao
@@ -49,5 +50,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("mouse_1"):
 		if !gun_anim.is_playing():
 			gun_anim.play("Fire")
+			
+	if Input.is_action_just_pressed("esq"):
+		get_tree().quit()
 	
 	move_and_slide()
