@@ -1,0 +1,2 @@
+https://github.com/asshole422/simple-first-person-template/blob/4.4/scenes/player.gd
+https://github.com/Phazorknight/Cogito?tab=readme-ov-file
