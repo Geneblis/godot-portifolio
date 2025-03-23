@@ -14,6 +14,10 @@ config/name="HorrorMazeGame"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[global_group]
+
+enemies=""
+
 [input]
 
 leftwards={
