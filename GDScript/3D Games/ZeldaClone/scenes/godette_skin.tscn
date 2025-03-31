@@ -1,0 +1,185 @@
+[gd_scene load_steps=36 format=3 uid="uid://hc4wrsyyghfv"]
+
+[ext_resource type="PackedScene" uid="uid://dyptiylsbx1un" path="res://assets/graphics/characters/godette/godette.glb" id="1_qypni"]
+[ext_resource type="Script" uid="uid://r52jd7w0bckw" path="res://scripts/player_godette_skin.gd" id="2_p0lun"]
+[ext_resource type="PackedScene" uid="uid://n374u0pp748w" path="res://assets/graphics/weapons/sword_1handed.gltf" id="3_hf2nj"]
+[ext_resource type="Texture2D" uid="uid://duuwuioe3xhwe" path="res://assets/graphics/characters/godette/godette_godette_faces.png" id="3_j57ux"]
+[ext_resource type="Texture2D" uid="uid://cdapeuf8gnfne" path="res://assets/graphics/weapons/barbarian_texture.png" id="4_bcuqu"]
+[ext_resource type="PackedScene" uid="uid://dmh03hjgc0o25" path="res://assets/graphics/weapons/shield.gltf.glb" id="5_2sum0"]
+[ext_resource type="PackedScene" uid="uid://dh6vm5b5mkgnv" path="res://assets/graphics/weapons/wand.gltf" id="5_j57ux"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mw0b0"]
+albedo_texture = ExtResource("3_j57ux")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j57ux"]
+albedo_texture = ExtResource("4_bcuqu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5sckd"]
+albedo_texture = ExtResource("4_bcuqu")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2sum0"]
+animation = &"Block"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_2sum0"]
+filter_enabled = true
+filters = [".", "AttackTimer", "Rig/Skeleton3D:chest", "Rig/Skeleton3D:hand.r", "Rig/Skeleton3D:handslot.r", "Rig/Skeleton3D:head", "Rig/Skeleton3D:hips", "Rig/Skeleton3D:lowerarm.r", "Rig/Skeleton3D:root", "Rig/Skeleton3D:spine", "Rig/Skeleton3D:upperarm.r", "Rig/Skeleton3D:wrist.r"]
+fadein_time = 0.2
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bcuqu"]
+animation = &"1H_Melee_Attack_Chop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j57ux"]
+animation = &"1H_Melee_Attack_Slice_Horizontal"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eqsdw"]
+xfade_time = 0.2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ea5qm"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8dhmi"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fnlsb"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6w1ko"]
+xfade_time = 0.1
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fnlsb"]
+states/Chop/node = SubResource("AnimationNodeAnimation_bcuqu")
+states/Chop/position = Vector2(343, 104)
+states/End/position = Vector2(490, 106)
+states/Slice/node = SubResource("AnimationNodeAnimation_j57ux")
+states/Slice/position = Vector2(343, 188)
+transitions = ["Start", "Chop", SubResource("AnimationNodeStateMachineTransition_eqsdw"), "Chop", "Slice", SubResource("AnimationNodeStateMachineTransition_ea5qm"), "Slice", "Chop", SubResource("AnimationNodeStateMachineTransition_8dhmi"), "Slice", "End", SubResource("AnimationNodeStateMachineTransition_fnlsb"), "Chop", "End", SubResource("AnimationNodeStateMachineTransition_6w1ko")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p0lun"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hf2nj"]
+animation = &"Jump_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g5t0n"]
+animation = &"Running_A"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bcuqu"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2sum0"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j57ux"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5sckd"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mw0b0"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_17f3i"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p0lun"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_eqsdw"]
+states/Idle/node = SubResource("AnimationNodeAnimation_p0lun")
+states/Idle/position = Vector2(339, 100)
+states/Jump_Idle/node = SubResource("AnimationNodeAnimation_hf2nj")
+states/Jump_Idle/position = Vector2(422, 180)
+states/Running_A/node = SubResource("AnimationNodeAnimation_g5t0n")
+states/Running_A/position = Vector2(517, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_bcuqu"), "Idle", "Running_A", SubResource("AnimationNodeStateMachineTransition_2sum0"), "Running_A", "Jump_Idle", SubResource("AnimationNodeStateMachineTransition_j57ux"), "Jump_Idle", "Idle", SubResource("AnimationNodeStateMachineTransition_5sckd"), "Idle", "Jump_Idle", SubResource("AnimationNodeStateMachineTransition_mw0b0"), "Jump_Idle", "Running_A", SubResource("AnimationNodeStateMachineTransition_17f3i"), "Running_A", "Idle", SubResource("AnimationNodeStateMachineTransition_p0lun")]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_j57ux"]
+filter_enabled = true
+filters = [".", "Rig/Skeleton3D:chest", "Rig/Skeleton3D:hand.l", "Rig/Skeleton3D:hand.r", "Rig/Skeleton3D:handslot.l", "Rig/Skeleton3D:handslot.r", "Rig/Skeleton3D:head", "Rig/Skeleton3D:hips", "Rig/Skeleton3D:lowerarm.l", "Rig/Skeleton3D:lowerarm.r", "Rig/Skeleton3D:root", "Rig/Skeleton3D:spine", "Rig/Skeleton3D:upperarm.l", "Rig/Skeleton3D:upperarm.r", "Rig/Skeleton3D:wrist.l", "Rig/Skeleton3D:wrist.r"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5sckd"]
+animation = &"Spellcast_Shoot"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_j57ux"]
+fadein_time = 0.2
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ea5qm"]
+graph_offset = Vector2(-567.58, 18.8737)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_2sum0")
+nodes/Animation/position = Vector2(-440, 300)
+nodes/AttackOneShot/node = SubResource("AnimationNodeOneShot_2sum0")
+nodes/AttackOneShot/position = Vector2(140, 120)
+nodes/AttackStateMachine/node = SubResource("AnimationNodeStateMachine_fnlsb")
+nodes/AttackStateMachine/position = Vector2(-220, 380)
+"nodes/MoveStateMachine 2/node" = SubResource("AnimationNodeStateMachine_eqsdw")
+"nodes/MoveStateMachine 2/position" = Vector2(-480, 100)
+nodes/ShieldBlend/node = SubResource("AnimationNodeBlend2_j57ux")
+nodes/ShieldBlend/position = Vector2(-180, 100)
+nodes/Spell/node = SubResource("AnimationNodeAnimation_5sckd")
+nodes/Spell/position = Vector2(300, 400)
+nodes/SpellOneShot/node = SubResource("AnimationNodeOneShot_j57ux")
+nodes/SpellOneShot/position = Vector2(500, 100)
+nodes/output/position = Vector2(820, 140)
+node_connections = [&"AttackOneShot", 0, &"ShieldBlend", &"AttackOneShot", 1, &"AttackStateMachine", &"ShieldBlend", 0, &"MoveStateMachine 2", &"ShieldBlend", 1, &"Animation", &"SpellOneShot", 0, &"AttackOneShot", &"SpellOneShot", 1, &"Spell", &"output", 0, &"SpellOneShot"]
+
+[node name="GodetteSkin" instance=ExtResource("1_qypni")]
+script = ExtResource("2_p0lun")
+
+[node name="Godette_Head" parent="Rig/Skeleton3D" index="3"]
+transform = Transform3D(1, -4.19759e-05, 3.12694e-05, 4.19759e-05, 1, -1.34213e-06, -3.12694e-05, 1.34213e-06, 1, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_mw0b0")
+
+[node name="RightHandSlot" type="BoneAttachment3D" parent="Rig/Skeleton3D" index="6"]
+transform = Transform3D(-0.999999, 4.68393e-07, 4.5731e-07, 3.978e-07, -5.88753e-07, 0.999999, 3.97616e-07, 0.999999, 5.35882e-07, -0.883132, 1.04926, -7.27595e-07)
+bone_name = "handslot.r"
+bone_idx = 13
+
+[node name="sword_1handed2" parent="Rig/Skeleton3D/RightHandSlot" index="0" instance=ExtResource("3_hf2nj")]
+
+[node name="sword_1handed" parent="Rig/Skeleton3D/RightHandSlot/sword_1handed2" index="0"]
+material_override = SubResource("StandardMaterial3D_j57ux")
+
+[node name="wand2" parent="Rig/Skeleton3D/RightHandSlot" index="1" instance=ExtResource("5_j57ux")]
+
+[node name="wand" parent="Rig/Skeleton3D/RightHandSlot/wand2" index="0"]
+material_override = SubResource("StandardMaterial3D_5sckd")
+
+[node name="LeftHandSlot" type="BoneAttachment3D" parent="Rig/Skeleton3D" index="7"]
+transform = Transform3D(-0.999999, -3.97612e-07, -3.67903e-07, -4.65843e-07, -5.30967e-07, 0.999999, -4.75847e-07, 0.999999, 6.23449e-07, 0.883132, 1.04926, -6.8115e-07)
+bone_name = "handslot.l"
+bone_idx = 8
+
+[node name="shield_gltf" parent="Rig/Skeleton3D/LeftHandSlot" index="0" instance=ExtResource("5_2sum0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15)
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "Idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeBlendTree_ea5qm")
+anim_player = NodePath("../AnimationPlayer")
+parameters/AttackOneShot/active = false
+parameters/AttackOneShot/internal_active = false
+parameters/AttackOneShot/request = 0
+parameters/ShieldBlend/blend_amount = 0.0
+parameters/SpellOneShot/active = 0.2
+parameters/SpellOneShot/internal_active = 0.0
+parameters/SpellOneShot/request = -0.00694444
+
+[node name="AttackTimer" type="Timer" parent="." index="3"]
+wait_time = 0.5
+one_shot = true
+
+[node name="bliwnk" type="Timer" parent="." index="4"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="bliwnk" to="." method="_on_bliwnk_timeout"]
+
+[editable path="Rig/Skeleton3D/RightHandSlot/sword_1handed2"]
+[editable path="Rig/Skeleton3D/RightHandSlot/wand2"]
+[editable path="Rig/Skeleton3D/LeftHandSlot/shield_gltf"]
