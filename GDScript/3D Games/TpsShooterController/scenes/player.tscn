@@ -1,37 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkarsmui52nlo"]
+[gd_scene load_steps=5 format=3 uid="uid://dkarsmui52nlo"]
 
-[ext_resource type="Script" uid="uid://bx3iaw43vi7i" path="res://script/player.gd" id="1_txn6w"]
-[ext_resource type="Script" uid="uid://jbto7fql268o" path="res://script/TPSCamera.gd" id="2_wg8ks"]
+[ext_resource type="Script" uid="uid://cv4nqbhhp4siy" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://dr6d0g5qmm56x" path="res://assets/models/mixamo_base.glb" id="2_dqkch"]
+[ext_resource type="Script" uid="uid://d31et68m75qcs" path="res://scripts/camera_node_script.gd" id="2_qhqgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b0l1v"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_raaqb"]
-size = Vector3(1, 1.805, 0.435)
-
-[sub_resource type="BoxMesh" id="BoxMesh_etm6f"]
-size = Vector3(0.89, 0.14, 0.43)
+radius = 0.278099
+height = 1.62463
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_target")]
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("1_txn6w")
+script = ExtResource("1_g2els")
 camera_target = NodePath("Camera/CameraTarget")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985767, 0)
 shape = SubResource("CapsuleShape3D_b0l1v")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907574, 0)
-mesh = SubResource("BoxMesh_raaqb")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.697974, 0.279277)
-mesh = SubResource("BoxMesh_etm6f")
+[node name="mixamo_base" parent="." instance=ExtResource("2_dqkch")]
 
 [node name="Camera" type="Node3D" parent="." node_paths=PackedStringArray("camera_target", "follow_target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68908, 0)
-script = ExtResource("2_wg8ks")
+script = ExtResource("2_qhqgy")
 camera_target = NodePath("CameraTarget")
 follow_target = NodePath("..")
 
