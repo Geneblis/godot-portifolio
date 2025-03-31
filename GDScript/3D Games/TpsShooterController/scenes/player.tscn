@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkarsmui52nlo"]
+
+[ext_resource type="Script" uid="uid://bx3iaw43vi7i" path="res://script/player.gd" id="1_txn6w"]
+[ext_resource type="Script" uid="uid://jbto7fql268o" path="res://script/TPSCamera.gd" id="2_wg8ks"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b0l1v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_raaqb"]
+size = Vector3(1, 1.805, 0.435)
+
+[sub_resource type="BoxMesh" id="BoxMesh_etm6f"]
+size = Vector3(0.89, 0.14, 0.43)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_target")]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_txn6w")
+camera_target = NodePath("Camera/CameraTarget")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985767, 0)
+shape = SubResource("CapsuleShape3D_b0l1v")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.907574, 0)
+mesh = SubResource("BoxMesh_raaqb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.697974, 0.279277)
+mesh = SubResource("BoxMesh_etm6f")
+
+[node name="Camera" type="Node3D" parent="." node_paths=PackedStringArray("camera_target", "follow_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68908, 0)
+script = ExtResource("2_wg8ks")
+camera_target = NodePath("CameraTarget")
+follow_target = NodePath("..")
+
+[node name="CameraTarget" type="Node3D" parent="Camera"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Camera/CameraTarget"]
+spring_length = -4.0
+
+[node name="Camera3D" type="Camera3D" parent="Camera/CameraTarget/SpringArm3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3)
