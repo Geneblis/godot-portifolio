@@ -23,9 +23,10 @@ transform = Transform3D(0.9, 0, 0, 0, 0.2, 0, 0, 0, 0.5, 0, 0.527084, -0.287704)
 mesh = SubResource("BoxMesh_g2els")
 skeleton = NodePath("../..")
 
-[node name="CameraRig" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 8, 7)
+[node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_qhqgy")
+target = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.866026)
