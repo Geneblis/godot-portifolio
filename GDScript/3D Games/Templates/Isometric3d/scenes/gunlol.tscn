@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cvsi8osmkvdqr"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00568238, 0.397156, -0.218018)
+size = Vector3(0.211365, 0.205688, 0.563965)
+
+[node name="RayCast3D" type="RayCast3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -5.96046e-08, 0, 5.96046e-08, 1, 0, 0, -0.256786)
+target_position = Vector3(0, 0, -1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.00575104, 0.281378, -0.0582499)
+size = Vector3(0.141464, 0.205688, 0.387573)
