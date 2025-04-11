@@ -5,20 +5,10 @@ extends CharacterBody3D
 
 # Nó que representa o modelo visual do jogador.
 @onready var model: MeshInstance3D = $Model
-@onready var gun: Node3D = $Model/Node3D/CSGBox3D/RayCast3D
-
-var bullet = load("res://scenes/boolet.tscn")
-var instance
 
 func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 	_look_at_mouse()
-	
-	if Input.is_action_just_pressed("shoot"):
-		instance = bullet.instantiate()
-		instance.position = gun.global_position
-		instance.transform.basis = gun.global_transform.basis
-		get_parent().add_child(instance)
 
 func _handle_movement(delta: float) -> void:
 	# Obtém o vetor de input, mas inverte o eixo Y para corrigir W/S

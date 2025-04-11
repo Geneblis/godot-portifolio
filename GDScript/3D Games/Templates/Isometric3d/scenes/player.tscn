@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnc66v2lus265"]
+[gd_scene load_steps=6 format=3 uid="uid://bnc66v2lus265"]
 
 [ext_resource type="Script" uid="uid://dyxxqkmnbnj5u" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="PackedScene" uid="uid://cvsi8osmkvdqr" path="res://scenes/gunlol.tscn" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://c427a7diewat3" path="res://scripts/camera_rig.gd" id="2_qhqgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqkch"]
@@ -24,10 +23,8 @@ transform = Transform3D(0.9, 0, 0, 0, 0.2, 0, 0, 0, 0.5, 0, 0.527084, -0.287704)
 mesh = SubResource("BoxMesh_g2els")
 skeleton = NodePath("../..")
 
-[node name="Node3D" parent="Model" instance=ExtResource("2_dqkch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.235273, -0.17407, -0.5532)
-
 [node name="CameraRig" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("2_qhqgy")
 target = NodePath("..")
 
