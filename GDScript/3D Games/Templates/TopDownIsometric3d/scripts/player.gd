@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @export var move_speed: float = 10.0
-@export var rotation_speed: float = 10.0   # Se quiser interpolar a rotação (opcional)
+@export var rotation_speed: float = 10.0
 
 # Nó que representa o modelo visual do jogador.
 @onready var model: MeshInstance3D = $Model
@@ -13,8 +13,16 @@ func _physics_process(delta: float) -> void:
 func _handle_movement(delta: float) -> void:
 	# Obtém o vetor de input, mas inverte o eixo Y para corrigir W/S
 	var input_vector: Vector2 = Input.get_vector("move_left", "move_right", "move_forwards", "move_backward") * Vector2(1, -1)
+	
+	# Gravidade
+	if not is_on_floor():
+		velocity.y -= 30.0 * delta
+	else:
+		velocity.y = 0.0
+		
 	if input_vector != Vector2.ZERO:
 		var cam = get_viewport().get_camera_3d()
+		
 		# Obtém a direção para frente e direita da câmera, ignorando o eixo Y
 		var forward: Vector3 = -cam.global_transform.basis.z
 		var right: Vector3 = cam.global_transform.basis.x
@@ -22,11 +30,14 @@ func _handle_movement(delta: float) -> void:
 		right.y = 0
 		forward = forward.normalized()
 		right = right.normalized()
+		
 		# Combina os vetores de movimento de acordo com o input do usuário
 		var move_dir: Vector3 = (forward * input_vector.y + right * input_vector.x).normalized()
-		velocity = move_dir * move_speed
+		velocity.x = move_dir.x * move_speed
+		velocity.z = move_dir.z * move_speed
 	else:
-		velocity = Vector3.ZERO
+		velocity.x = 0
+		velocity.z = 0
 	move_and_slide()
 	
 func _look_at_mouse() -> void:

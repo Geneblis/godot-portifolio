@@ -21,33 +21,62 @@ func _physics_process(delta: float) -> void:
 		get_parent().add_child(instance)
 
 func _handle_movement(delta: float) -> void:
+	# Aplica gravidade quando o player não está no chão
+	if not is_on_floor():
+		velocity.y -= 30.0 * delta
+	else:
+		velocity.y = 0.0
+	
 	# Obtém o vetor de input, mas inverte o eixo Y para corrigir W/S
 	var input_vector: Vector2 = Input.get_vector("move_left", "move_right", "move_forwards", "move_backward") * Vector2(1, -1)
 	if input_vector != Vector2.ZERO:
 		var cam = get_viewport().get_camera_3d()
-		# Obtém a direção para frente e direita da câmera, ignorando o eixo Y
 		var forward: Vector3 = -cam.global_transform.basis.z
 		var right: Vector3 = cam.global_transform.basis.x
 		forward.y = 0
 		right.y = 0
 		forward = forward.normalized()
 		right = right.normalized()
-		# Combina os vetores de movimento de acordo com o input do usuário
 		var move_dir: Vector3 = (forward * input_vector.y + right * input_vector.x).normalized()
-		velocity = move_dir * move_speed
+		velocity.x = move_dir.x * move_speed
+		velocity.z = move_dir.z * move_speed
 	else:
-		velocity = Vector3.ZERO
+		velocity.x = 0
+		velocity.z = 0
 	move_and_slide()
-	
+
 func _look_at_mouse() -> void:
-	var mouse_world_pos: Vector3 = _get_mouse_world_position()
-	# Se a posição for válida, faça o modelo olhar para ela, mantendo a altura do jogador.
-	if mouse_world_pos != Vector3.ZERO: 
-		mouse_world_pos.y = global_position.y
-		# Calcula o ângulo alvo, ajustando por -PI para alinhar com o -Z (frente)
-		var target_angle = atan2(mouse_world_pos.x - global_position.x, mouse_world_pos.z - global_position.z) - PI
-		# Atualiza a rotação do modelo de forma suave
-		model.rotation.y = lerp_angle(model.rotation.y, target_angle, rotation_speed * get_process_delta_time())
+	var cam := get_viewport().get_camera_3d()
+	if cam == null:
+		return
+	
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var ray_origin: Vector3 = cam.project_ray_origin(mouse_pos)
+	var ray_dir: Vector3 = cam.project_ray_normal(mouse_pos)
+
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_origin + ray_dir * 1000)
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+	var result = space_state.intersect_ray(query)
+
+	var look_target: Vector3
+	if result:
+		# Olha diretamente para onde o mouse está colidindo (ex: inimigo)
+		look_target = result.position
+	else:
+		# Se não colidir com nada, mira para frente do jogador (útil em ladeiras)
+		look_target = global_position + velocity.normalized() * 10.0
+		look_target.y = global_position.y + 1.5  # opcional: ajusta altura da mira
+
+	# Faz o modelo girar horizontalmente
+	var flat_target = look_target
+	flat_target.y = global_position.y
+	var target_angle = atan2(flat_target.x - global_position.x, flat_target.z - global_position.z) - PI
+	model.rotation.y = lerp_angle(model.rotation.y, target_angle, rotation_speed * get_process_delta_time())
+
+	# Faz a arma mirar diretamente no ponto, incluindo altura
+	gun.look_at(look_target, Vector3.UP)
 
 # Função para projetar o mouse no plano horizontal
 func _get_mouse_world_position() -> Vector3:
