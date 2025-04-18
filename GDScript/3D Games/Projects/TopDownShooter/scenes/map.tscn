@@ -80,7 +80,7 @@ mesh = SubResource("CapsuleMesh_gldc4")
 shape = SubResource("ConcavePolygonShape3D_0cso3")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.27075, 7.38516, -27.711)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.59766, 7.38516, -27.711)
 mesh = SubResource("CapsuleMesh_gldc4")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D6"]
