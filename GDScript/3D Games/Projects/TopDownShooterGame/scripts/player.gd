@@ -7,8 +7,12 @@ extends CharacterBody3D
 @onready var model: MeshInstance3D = $Model
 @onready var gun: Node3D = $Model/Node3D/CSGBox3D/RayCast3D
 
+##@onready var traj_inst: MeshInstance3D = gun.get_node("Trajectory")
+#@export var traj_color: Color = Color(1,0,0)
+
 var bullet = load("res://scenes/boolet.tscn")
 var instance
+
 
 func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
@@ -19,6 +23,7 @@ func _physics_process(delta: float) -> void:
 		instance.position = gun.global_position
 		instance.transform.basis = gun.global_transform.basis
 		get_parent().add_child(instance)
+
 
 func _handle_movement(delta: float) -> void:
 	# Aplica gravidade quando o player não está no chão

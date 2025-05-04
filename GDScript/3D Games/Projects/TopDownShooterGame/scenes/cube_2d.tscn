@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://du8qewtn4np32"]
+
+[ext_resource type="Texture2D" uid="uid://do0fismi5yeka" path="res://icon.svg" id="1_35cvg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2nq8g"]
+
+[node name="Node3D" type="StaticBody3D"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.0075
+billboard = 2
+shaded = true
+texture = ExtResource("1_35cvg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_2nq8g")

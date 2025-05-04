@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://xul0o6m7en7x"]
+[gd_scene load_steps=13 format=3 uid="uid://xul0o6m7en7x"]
 
 [ext_resource type="PackedScene" uid="uid://bnc66v2lus265" path="res://scenes/player.tscn" id="1_4xfga"]
+[ext_resource type="PackedScene" uid="uid://du8qewtn4np32" path="res://scenes/cube_2d.tscn" id="2_paxxb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xfga"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -95,3 +96,6 @@ mesh = SubResource("CylinderMesh_4xfga")
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
 transform = Transform3D(16.2087, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.66989, -27.6937)
 mesh = SubResource("CylinderMesh_4xfga")
+
+[node name="Node3D" parent="." instance=ExtResource("2_paxxb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -21)
