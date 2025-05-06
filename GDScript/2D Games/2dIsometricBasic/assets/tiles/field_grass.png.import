@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgpgnt6e0ieqb"
-path="res://.godot/imported/Arrow01(32x32).png-c403c4c8e59ae26e706fd1802f014727.ctex"
+uid="uid://cbaoci1tfy882"
+path="res://.godot/imported/field_grass.png-8b2bfe3eded77410cb735f74eed4db9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Arrow01(32x32).png"
-dest_files=["res://.godot/imported/Arrow01(32x32).png-c403c4c8e59ae26e706fd1802f014727.ctex"]
+source_file="res://assets/tiles/field_grass.png"
+dest_files=["res://.godot/imported/field_grass.png-8b2bfe3eded77410cb735f74eed4db9e.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-const SPEED = 150
+const SPEED = 500
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

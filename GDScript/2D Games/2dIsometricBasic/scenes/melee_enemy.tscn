@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://qa620jcu4xtf"]
+
+[ext_resource type="Script" uid="uid://1gr0fkacwk32" path="res://scripts/melee_enemy.gd" id="1_vaj5w"]
+[ext_resource type="Texture2D" uid="uid://ojvo65plkhnd" path="res://icon.svg" id="1_xnaus"]
+[ext_resource type="Texture2D" uid="uid://70s3eyiv7wqc" path="res://assets/sprites/others/pictureLightMask2_thumb.png" id="2_vaj5w"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8age4"]
+
+[node name="MeleeEnemy" type="CharacterBody2D"]
+script = ExtResource("1_vaj5w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_xnaus")
+
+[node name="DamageCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_8age4")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.762535, 0, 0.145499, 1)
+energy = 2.0
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_filter_smooth = 7.5
+texture = ExtResource("2_vaj5w")
+height = 160.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 4.0
+path_max_distance = 10.0
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(50, 0)

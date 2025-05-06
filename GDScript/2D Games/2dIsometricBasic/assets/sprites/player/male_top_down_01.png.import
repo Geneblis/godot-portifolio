@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgpgnt6e0ieqb"
-path="res://.godot/imported/Arrow01(32x32).png-c403c4c8e59ae26e706fd1802f014727.ctex"
+uid="uid://bt5sd84o3pd7"
+path="res://.godot/imported/male_top_down_01.png-b52424febd5231171ea72102ce889176.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Arrow01(32x32).png"
-dest_files=["res://.godot/imported/Arrow01(32x32).png-c403c4c8e59ae26e706fd1802f014727.ctex"]
+source_file="res://assets/sprites/player/male_top_down_01.png"
+dest_files=["res://.godot/imported/male_top_down_01.png-b52424febd5231171ea72102ce889176.ctex"]
 
 [params]
 

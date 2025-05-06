@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgpgnt6e0ieqb"
-path="res://.godot/imported/Arrow01(32x32).png-c403c4c8e59ae26e706fd1802f014727.ctex"
+uid="uid://dqvnf3p43jfv"
+path="res://.godot/imported/quarry_pond_corner.png-43c812018307b5168ff8473005508cf3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Arrow01(32x32).png"
-dest_files=["res://.godot/imported/Arrow01(32x32).png-c403c4c8e59ae26e706fd1802f014727.ctex"]
+source_file="res://assets/tiles/quarry_pond_corner.png"
+dest_files=["res://.godot/imported/quarry_pond_corner.png-43c812018307b5168ff8473005508cf3.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgpgnt6e0ieqb"
-path="res://.godot/imported/Arrow01(32x32).png-c403c4c8e59ae26e706fd1802f014727.ctex"
+uid="uid://bchyfcgmbxnu"
+path="res://.godot/imported/beach_mud.png-f18ded44e26d6232623c831f8c11173b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Arrow01(32x32).png"
-dest_files=["res://.godot/imported/Arrow01(32x32).png-c403c4c8e59ae26e706fd1802f014727.ctex"]
+source_file="res://assets/tiles/beach_mud.png"
+dest_files=["res://.godot/imported/beach_mud.png-f18ded44e26d6232623c831f8c11173b.ctex"]
 
 [params]
 

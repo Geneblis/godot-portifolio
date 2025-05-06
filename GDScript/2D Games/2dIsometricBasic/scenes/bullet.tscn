@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dl0oohkdfcymj"]
+[gd_scene load_steps=3 format=3 uid="uid://ch1lwfk43fc0m"]
 
 [ext_resource type="Script" uid="uid://bcpy4awuwl4y3" path="res://scripts/bullet.gd" id="1_y25gk"]
-[ext_resource type="Texture2D" uid="uid://bed7niyys1k55" path="res://assets/Arrow01(32x32).png" id="2_l5glv"]
+[ext_resource type="Texture2D" uid="uid://dgpgnt6e0ieqb" path="res://assets/Arrow01(32x32).png" id="2_l5glv"]
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource("1_y25gk")
