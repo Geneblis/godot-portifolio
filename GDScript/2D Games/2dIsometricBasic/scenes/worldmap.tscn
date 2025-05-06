@@ -169,6 +169,5 @@ tile_set = SubResource("TileSet_xm5vq")
 energy = 0.5
 blend_mode = 1
 
-[node name="MeleeEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_xm5vq")]
+[node name="MeleeEnemy" parent="." instance=ExtResource("8_xm5vq")]
 position = Vector2(233, 34)
-player = NodePath("../Player")

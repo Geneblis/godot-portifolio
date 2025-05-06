@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ct1r7e25oyhkv"]
 
-[ext_resource type="Script" uid="uid://c78wca7odgol4" path="res://scripts/gun.gd" id="1_og67c"]
+[ext_resource type="Script" uid="uid://c78wca7odgol4" path="res://scripts/player/gun.gd" id="1_og67c"]
 [ext_resource type="Texture2D" uid="uid://bt5sd84o3pd7" path="res://assets/sprites/player/male_top_down_01.png" id="2_og67c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gp1hk"]

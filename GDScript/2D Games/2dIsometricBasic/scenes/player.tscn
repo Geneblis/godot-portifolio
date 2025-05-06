@@ -1,9 +1,9 @@
 [gd_scene load_steps=31 format=3 uid="uid://b3l2d7kojo5gi"]
 
-[ext_resource type="Script" uid="uid://cycw34kov2e2" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://cycw34kov2e2" path="res://scripts/player/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://bt5sd84o3pd7" path="res://assets/sprites/player/male_top_down_01.png" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://ct1r7e25oyhkv" path="res://scenes/gun.tscn" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://crw8spg8fhynu" path="res://scripts/player_camera.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://crw8spg8fhynu" path="res://scripts/player/player_camera.gd" id="4_dqkch"]
 [ext_resource type="Texture2D" uid="uid://70s3eyiv7wqc" path="res://assets/sprites/others/pictureLightMask2_thumb.png" id="5_qlg0r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l71n6"]
@@ -185,7 +185,7 @@ animations = [{
 radius = 3.33333
 height = 20.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_g2els")
 
 [node name="LegNode" type="Node2D" parent="."]
