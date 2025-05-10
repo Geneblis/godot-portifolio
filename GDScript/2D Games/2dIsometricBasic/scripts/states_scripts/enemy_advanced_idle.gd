@@ -1,4 +1,3 @@
-# EnemyAdvancedIdle.gd
 extends State
 class_name EnemyAdvancedIdle
 

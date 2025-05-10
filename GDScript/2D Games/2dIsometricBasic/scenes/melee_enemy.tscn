@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://qa620jcu4xtf"]
+[gd_scene load_steps=10 format=3 uid="uid://qa620jcu4xtf"]
 
 [ext_resource type="Script" uid="uid://1gr0fkacwk32" path="res://scripts/melee_enemy.gd" id="1_vaj5w"]
 [ext_resource type="Texture2D" uid="uid://ojvo65plkhnd" path="res://icon.svg" id="1_xnaus"]
 [ext_resource type="Texture2D" uid="uid://70s3eyiv7wqc" path="res://assets/sprites/others/pictureLightMask2_thumb.png" id="2_vaj5w"]
+[ext_resource type="PackedScene" uid="uid://7xe682gpmk6n" path="res://scenes/general_handlers/health.tscn" id="2_x3ymb"]
 [ext_resource type="Script" uid="uid://dfearvdhmrus6" path="res://scripts/states_scripts/state_machine.gd" id="4_8age4"]
 [ext_resource type="Script" uid="uid://c0dvpartyk5ly" path="res://scripts/states_scripts/enemy_melee_advanced_chase.gd" id="5_xcjf7"]
 [ext_resource type="Script" uid="uid://dh7c7cpxxbvky" path="res://scripts/states_scripts/enemy_advanced_idle.gd" id="6_xcjf7"]
@@ -14,6 +15,9 @@ radius = 88.0
 
 [node name="MeleeEnemy" type="CharacterBody2D"]
 script = ExtResource("1_vaj5w")
+
+[node name="HealthModule" parent="." instance=ExtResource("2_x3ymb")]
+max_health = 12
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)

@@ -1,6 +1,6 @@
 extends Node2D
 
-const BULLET = preload("res://scenes/bullet.tscn")
+const BULLET = preload("res://scenes/general_handlers/bullet.tscn")
 @onready var marker_2d: Marker2D = $Marker2D
 signal FireBullet
 

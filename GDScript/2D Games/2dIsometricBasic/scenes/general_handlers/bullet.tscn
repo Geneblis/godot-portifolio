@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch1lwfk43fc0m"]
+
+[ext_resource type="Script" uid="uid://bcpy4awuwl4y3" path="res://scripts/bullet.gd" id="1_y1vhl"]
+[ext_resource type="Texture2D" uid="uid://dgpgnt6e0ieqb" path="res://assets/Arrow01(32x32).png" id="2_syv38"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y25gk"]
+size = Vector2(16, 5)
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_y1vhl")
+
+[node name="BulletArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletArea"]
+shape = SubResource("RectangleShape2D_y25gk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_syv38")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="BulletArea" to="." method="_on_bullet_area_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

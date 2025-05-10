@@ -1,0 +1,3 @@
+Please, just make nodes next time.
+
+You and I both know we hate classes and inheritance. So save us the trouble and make them nodes.
