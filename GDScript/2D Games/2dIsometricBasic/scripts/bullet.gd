@@ -17,6 +17,7 @@ func _on_bullet_area_body_entered(body: Node2D) -> void:
 		var HealthModule = body.get_node("HealthModule")
 		if body is CharacterBody2D and HealthModule.took_damage == false:
 			HealthModule.apply_damage(damage) #body > looks for healthmodule > looks for damage func
+			print(damage)
 			queue_free()
 		else:
 			queue_free()

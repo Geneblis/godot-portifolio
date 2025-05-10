@@ -2,6 +2,7 @@ extends Node2D
 
 const BULLET = preload("res://scenes/general_handlers/bullet.tscn")
 @onready var marker_2d: Marker2D = $Marker2D
+@export var bullet_damage: int
 signal FireBullet
 
 # Called when the node enters the scene tree for the first time.
@@ -22,3 +23,8 @@ func _process(delta: float) -> void:
 		get_tree().root.add_child(bullet_ins)
 		bullet_ins.global_position = marker_2d.global_position
 		bullet_ins.rotation = rotation
+		
+		if bullet_damage < 0:
+			return
+		else:
+			bullet_ins.damage = bullet_damage
