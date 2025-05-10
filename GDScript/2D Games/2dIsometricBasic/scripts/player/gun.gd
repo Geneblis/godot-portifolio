@@ -2,11 +2,12 @@ extends Node2D
 
 const BULLET = preload("res://scenes/bullet.tscn")
 @onready var marker_2d: Marker2D = $Marker2D
+signal FireBullet
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	look_at(get_global_mouse_position())
 	rotation_degrees = wrap(rotation_degrees, 0, 360)
@@ -16,6 +17,7 @@ func _process(delta: float) -> void:
 		scale.y = 1
 	#bullet instantiaion.
 	if Input.is_action_just_pressed("fire"):
+		emit_signal("FireBullet")
 		var bullet_ins = BULLET.instantiate()
 		get_tree().root.add_child(bullet_ins)
 		bullet_ins.global_position = marker_2d.global_position

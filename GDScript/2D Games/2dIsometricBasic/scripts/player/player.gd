@@ -7,6 +7,10 @@ extends CharacterBody2D
 @onready var leg_node: Node2D = $LegNode
 @onready var character_node: Node2D = $CharacterNode 
 @onready var legs_sprite: AnimatedSprite2D = $LegNode/AnimatedSprite2D
+@onready var camera: Camera2D = $Camera2D
+
+func _ready() -> void:
+	gun.connect("FireBullet", camera.start_shake)
 
 func _physics_process(delta: float) -> void:
 	_move_player(delta)
