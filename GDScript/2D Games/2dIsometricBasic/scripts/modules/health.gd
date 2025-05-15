@@ -16,7 +16,7 @@ func apply_damage(amount: int) -> void:
 		return
 		
 	if took_damage == false:
-		char_changed_health.emit()
+		emit_signal("char_changed_health")
 		damage_timer.start() #timer for invencibility
 		current_health = clamp(current_health - amount, 0, max_health)
 		#print("DEBUG: (DAMAGE) Current health of target: ", current_health )
@@ -33,7 +33,7 @@ func apply_heal(amount: int) -> void:
 	#print("DEBUG: (HEAL) Current health of target: ", current_health)
 	
 func _on_died(): #chama um signal
-	char_died.emit()
+	emit_signal("char_died")
 	
 func flash_red(): #sets damage colour 
 	took_damage = true
@@ -47,7 +47,6 @@ func reset_sprite(): #returns to normal
 		self.sprite.modulate = Color(1,1,1)
 	else:
 		return
-	
 func _on_damage_timer_timeout(): #invencibilitity is over
 	took_damage = false
 	reset_sprite()

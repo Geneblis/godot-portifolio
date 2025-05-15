@@ -170,4 +170,7 @@ energy = 0.5
 blend_mode = 1
 
 [node name="MeleeEnemy" parent="." instance=ExtResource("8_xm5vq")]
-position = Vector2(233, 34)
+position = Vector2(188, 83)
+
+[node name="MeleeEnemy2" parent="." instance=ExtResource("8_xm5vq")]
+position = Vector2(305, 57)

@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 		bullet_ins.global_position = marker_2d.global_position
 		bullet_ins.rotation = rotation
 		
-		if bullet_damage < 0:
+		if bullet_damage <= 0:
 			return
 		else:
 			bullet_ins.damage = bullet_damage

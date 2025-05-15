@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var character_node: Node2D = $CharacterNode 
 @onready var legs_sprite: AnimatedSprite2D = $LegNode/AnimatedSprite2D
 @onready var camera: Camera2D = $Camera2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 func _ready() -> void:
 	gun.connect("FireBullet", camera.start_shake)
@@ -15,6 +16,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_move_player(delta)
 	character_node.look_at(get_global_mouse_position())
+	collision_shape_2d.look_at(get_global_mouse_position())
 	
 func _move_player(delta: float) -> void:
 	# Monta um vetor 2D de entrada a partir das ações do Input Map

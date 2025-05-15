@@ -52,14 +52,14 @@ script = ExtResource("4_8age4")
 initial_state = NodePath("EnemyAdvancedIdle")
 metadata/_custom_type_script = "uid://dfearvdhmrus6"
 
-[node name="EnemyAdvancedMeleeChaseState" type="Node" parent="State" node_paths=PackedStringArray("enemy", "agent", "vision_area", "vision_ray", "idle_state_name")]
+[node name="EnemyAdvancedMeleeChaseState" type="Node" parent="State" node_paths=PackedStringArray("enemy", "agent", "vision_area", "vision_ray", "idle_state")]
 script = ExtResource("5_xcjf7")
 chase_speed = 60.0
 enemy = NodePath("../..")
 agent = NodePath("../../NavigationAgent2D")
 vision_area = NodePath("../../VisibilityArea")
 vision_ray = NodePath("../../RayCast2D")
-idle_state_name = NodePath("../EnemyAdvancedIdle")
+idle_state = NodePath("../EnemyAdvancedIdle")
 metadata/_custom_type_script = "uid://c0dvpartyk5ly"
 
 [node name="EnemyAdvancedIdle" type="Node" parent="State" node_paths=PackedStringArray("enemy", "vision_area", "next_state")]

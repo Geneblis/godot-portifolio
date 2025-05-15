@@ -212,7 +212,6 @@ rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_l71n6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, 0)
 scale = Vector2(1.2, 1.2)
 shape = SubResource("CapsuleShape2D_qlg0r")
 
