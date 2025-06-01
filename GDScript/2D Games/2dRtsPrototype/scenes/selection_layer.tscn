@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjx7hhvicpkf"]
+
+[ext_resource type="Script" uid="uid://c5hxjxa6r8em4" path="res://scripts/selection_layer.gd" id="1_oyjvo"]
+
+[node name="SelectionLayer" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_oyjvo")
