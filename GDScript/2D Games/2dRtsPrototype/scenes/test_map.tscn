@@ -14,22 +14,17 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-288, 168, -287, -161, 
 zoom = Vector2(2, 2)
 
 [node name="SelectionLayer" parent="." instance=ExtResource("1_fn2sa")]
-units_container_path = NodePath("../Units")
-grid_spacing = 40.0
 
 [node name="Units" type="Node2D" parent="."]
 
 [node name="Unit" parent="Units" instance=ExtResource("2_57l66")]
 position = Vector2(40, 62)
-move_speed = 200.0
 
 [node name="Unit2" parent="Units" instance=ExtResource("2_57l66")]
 position = Vector2(33, 20)
-move_speed = 200.0
 
 [node name="Unit3" parent="Units" instance=ExtResource("2_57l66")]
 position = Vector2(125, 47)
-move_speed = 200.0
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_fn2sa")
