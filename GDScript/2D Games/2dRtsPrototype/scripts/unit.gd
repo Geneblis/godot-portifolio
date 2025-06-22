@@ -5,15 +5,21 @@ extends CharacterBody2D
 var target_position         : Vector2
 var use_navigation_agent    : bool  = false
 @onready var agent: NavigationAgent2D = $NavigationAgent2D
+@onready var attack_area: Area2D = $AttackArea
 
 func _ready() -> void:
+	attack_area.body_entered.connect(_on_attacked)
+	
 	# Inicializa target_position para a posição atual
-	target_position = global_position
-
+	target_position = global_position 
 	# Se existir um NavigationAgent2D como filho, vamos usá‐lo
 	if has_node("NavigationAgent2D"):
 		use_navigation_agent = true
 		agent.target_position = global_position
+
+func _on_attacked(body):
+	if body.is_in_group("Enemy"):
+		print("PC recebeu ataque de NPC!")
 
 func _set_agent(value):
 	agent = value

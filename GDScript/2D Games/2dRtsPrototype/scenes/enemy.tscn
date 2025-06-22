@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca8fhj38qgjnc"]
+
+[ext_resource type="Texture2D" uid="uid://dwfr27yr6l5bh" path="res://icon.svg" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://uxhuuncn1ej1" path="res://scripts/enemy.gd" id="1_md0e3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ra3w"]
+radius = 62.0
+height = 128.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5uy6h"]
+radius = 51.0098
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+script = ExtResource("1_md0e3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_md0e3")
+debug_color = Color(0.981707, 0, 0.368701, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.466751, 0.491595, 1)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_7p1mj")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="VisionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CapsuleShape2D_4ra3w")
+debug_color = Color(2.55093e-06, 0.645326, 0.262507, 0.42)
+
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_5uy6h")
+debug_color = Color(1, 0, 0.0931407, 0.42)
+
+[node name="VisionRay" type="RayCast2D" parent="."]

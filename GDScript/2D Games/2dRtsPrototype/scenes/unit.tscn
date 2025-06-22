@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://362tnlaudcqq"]
+[gd_scene load_steps=5 format=3 uid="uid://362tnlaudcqq"]
 
 [ext_resource type="Script" uid="uid://bmme0xl314joh" path="res://scripts/unit.gd" id="1_k673f"]
 [ext_resource type="Texture2D" uid="uid://dwfr27yr6l5bh" path="res://icon.svg" id="1_o7ajc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k673f"]
 
-[node name="Unit" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_k673f"]
+radius = 77.0
+
+[node name="Unit" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_k673f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -16,3 +19,8 @@ texture = ExtResource("1_o7ajc")
 shape = SubResource("RectangleShape2D_k673f")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_k673f")

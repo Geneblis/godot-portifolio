@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfv05bw4i4xcq"]
+[gd_scene load_steps=5 format=3 uid="uid://dfv05bw4i4xcq"]
 
 [ext_resource type="PackedScene" uid="uid://bjx7hhvicpkf" path="res://scenes/selection_layer.tscn" id="1_fn2sa"]
 [ext_resource type="PackedScene" uid="uid://362tnlaudcqq" path="res://scenes/unit.tscn" id="2_57l66"]
+[ext_resource type="PackedScene" uid="uid://ca8fhj38qgjnc" path="res://scenes/enemy.tscn" id="3_57l66"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fn2sa"]
 vertices = PackedVector2Array(279.93, -149.031, 278.063, 152.102, -277.961, 157.891, -277.031, -150.961)
@@ -28,3 +29,6 @@ position = Vector2(125, 47)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_fn2sa")
+
+[node name="Enemy" parent="." instance=ExtResource("3_57l66")]
+position = Vector2(-214, -91)
