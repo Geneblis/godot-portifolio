@@ -10,9 +10,7 @@ var use_navigation_agent    : bool  = false
 func _ready() -> void:
 	attack_area.body_entered.connect(_on_attacked)
 	
-	# Inicializa target_position para a posição atual
 	target_position = global_position 
-	# Se existir um NavigationAgent2D como filho, vamos usá‐lo
 	if has_node("NavigationAgent2D"):
 		use_navigation_agent = true
 		agent.target_position = global_position

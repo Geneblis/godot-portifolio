@@ -39,3 +39,9 @@ shape = SubResource("CircleShape2D_5uy6h")
 debug_color = Color(1, 0, 0.0931407, 0.42)
 
 [node name="VisionRay" type="RayCast2D" parent="."]
+
+[node name="DetectTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="IdleTimer" type="Timer" parent="."]
+one_shot = true
