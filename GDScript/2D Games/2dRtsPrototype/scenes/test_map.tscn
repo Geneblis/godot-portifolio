@@ -36,9 +36,9 @@ patrol_speed = 5.0
 chase_speed = 8.0
 
 [node name="Enemy2" parent="." instance=ExtResource("3_57l66")]
-position = Vector2(-240, 7)
+position = Vector2(140, -100)
 patrol_speed = 5.0
-chase_speed = 8.0
+chase_speed = 12.0
 
 [node name="Enemy3" parent="." instance=ExtResource("3_57l66")]
 position = Vector2(-239, 93)
