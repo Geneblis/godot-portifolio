@@ -34,3 +34,13 @@ navigation_polygon = SubResource("NavigationPolygon_fn2sa")
 position = Vector2(-214, -91)
 patrol_speed = 5.0
 chase_speed = 8.0
+
+[node name="Enemy2" parent="." instance=ExtResource("3_57l66")]
+position = Vector2(-240, 7)
+patrol_speed = 5.0
+chase_speed = 8.0
+
+[node name="Enemy3" parent="." instance=ExtResource("3_57l66")]
+position = Vector2(-239, 93)
+patrol_speed = 5.0
+chase_speed = 8.0
