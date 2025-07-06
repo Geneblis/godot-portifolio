@@ -9,6 +9,7 @@ extends CharacterBody3D
 var Died = false
 var Seeing = false
 var TargetDetected = false
+var Crouching = false
 
 func _ready() -> void:
 	Anims.animation_finished.connect(_on_animation_finished)
@@ -16,6 +17,10 @@ func _ready() -> void:
 func _on_animation_finished(animation):
 	if animation == "Death2Stand" and Died:
 		queue_free()
+	if animation == "GoingProne" and not Crouching:
+		Crouching = true
+	elif animation == "GoingProne" and Crouching:
+		Crouching = false
 
 func _physics_process(delta: float) -> void:
 	# vision cone
@@ -27,6 +32,7 @@ func _physics_process(delta: float) -> void:
 		if Anims.current_animation != "Death2Stand":
 			Anims.play("Death2Stand")
 			TargetDetected = false
+			Crouching = false
 		
 	# if vision sees player...
 	if Sight.is_colliding() and not Died:
@@ -39,17 +45,23 @@ func _physics_process(delta: float) -> void:
 		Seeing = false
 		
 	# if player was spotted:
-	if TargetDetected:
+	if TargetDetected and not Died:
 		rotate_y(Sight.rotation.y * delta * 40)
-		if Seeing:
+		if Seeing and not Crouching:
+			Anims.play("GoingProne")
+			velocity = Vector3.ZERO
+			
+		elif not Seeing and Crouching:
+			Anims.play_backwards("GoingProne")
+			velocity = Vector3.ZERO
+			
+		elif Seeing and Crouching:
 			Anims.play("ShootingLoop")
 			velocity = Vector3.ZERO
+			
 		else:
 			Anims.play("WalkingStandLoop")
 			Run()
-	elif TargetDetected and not Died:
-		Anims.play("IdleLoop1")
-		velocity = Vector3.ZERO
 	move_and_slide()
 
 func Run():
@@ -57,9 +69,3 @@ func Run():
 	var CurrentPos = global_position
 	var NextPos = Agent.get_next_path_position()
 	velocity = Vector3(NextPos - CurrentPos).normalized() * 6
-	 
-
-#func _on_vision_enter(body: Node) -> void:
-#	if body.is_in_group("Player"):
-#		player_target = body as Node3D
-#		look_timer.start()
