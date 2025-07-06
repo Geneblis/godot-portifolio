@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6ficey7uhyg0"]
+
+[ext_resource type="Script" uid="uid://c3grf67vaa1mn" path="res://scripts/modules/health.gd" id="1_qtbis"]
+
+[node name="Health" type="Node"]
+script = ExtResource("1_qtbis")
+
+[node name="DamageTimer" type="Timer" parent="."]
