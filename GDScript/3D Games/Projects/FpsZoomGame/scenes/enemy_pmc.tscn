@@ -4,21 +4,20 @@
 [ext_resource type="Script" uid="uid://cyi5x370t5oaf" path="res://scripts/enemy_pmc.gd" id="1_h6qwk"]
 [ext_resource type="PackedScene" uid="uid://bvlolj3jja8cu" path="res://assets/models/weapons/rifles/M4A1.fbx" id="2_sefqk"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_h6qwk"]
-points = PackedVector3Array(-0.0336808, 1.12439, 0.33653, 0.0497408, 1.11932, 0.336464, 0.0504184, 1.3197, 0.312153, -0.0761297, 1.32215, 0.312153, -0.108463, 0.0191561, 0.246139, 0.0966427, 1.42322, 0.18243, 0.000902727, 0.0191561, 0.246139, 0.0378822, 0.0196806, 0.246073, 0.138753, 0.027549, 0.217875, 0.0403749, 1.4692, 0.284878, 0.042069, 1.39891, 0.299109, -0.0826883, 1.39944, 0.299109, -0.108463, 0.0191561, -0.246205, -0.0967008, 1.37006, 0.197188, -0.0971122, 1.37006, -6.59525e-05, 0.0946582, 1.76995, 0.0678594, 0.000902727, 0.0191561, -0.246205, 0.0378822, 0.0196806, -0.246139, 0.138753, 0.027549, -0.217941, 0.0206509, 1.51729, 0.267946, -0.0755247, 1.4692, 0.284878, -0.093724, 1.43773, 0.18243, -0.0967008, 1.37006, -0.197254, -0.0826883, 1.39944, -0.299175, -0.0761297, 1.32215, -0.312219, -0.0336808, 1.12439, -0.33653, 0.0497408, 1.11932, -0.33653, -0.093724, 1.43773, -0.182496, 0.0946582, 1.76995, -0.0679254, 0.0542422, 1.7988, 0.0521134, 0.0966427, 1.42322, -0.182496, -0.0530418, 1.51729, 0.267946, 0.0280081, 1.80544, 0.0486875, -0.0489276, 1.78516, 0.0566593, 0.0403749, 1.4692, -0.284944, 0.042069, 1.39891, -0.299175, -0.0755247, 1.4692, -0.284944, 0.0504184, 1.3197, -0.312219, -0.0489276, 1.78516, -0.0567253, 0.0542422, 1.7988, -0.0521794, 0.0206509, 1.51729, -0.268012, 0.0280081, 1.80544, -0.0487535, -0.0530418, 1.51729, -0.268012)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6qwk"]
 
 [node name="enemy_pmc" type="CharacterBody3D" groups=["Enemy"]]
 script = ExtResource("1_h6qwk")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_h6qwk")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.671671, -0.0918484)
+shape = SubResource("CapsuleShape3D_h6qwk")
 
 [node name="Assets" type="Node3D" parent="."]
 
 [node name="RayCast3D" type="RayCast3D" parent="Assets"]
-transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 1.1, 0)
-target_position = Vector3(0, -1, -100)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+target_position = Vector3(0, 0, -180)
 
 [node name="pmc_enemy" parent="Assets" instance=ExtResource("1_dsgyj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -85,5 +84,7 @@ transform = Transform3D(-16.6697, 76.7656, -15.1375, -0.197973, 15.4358, 78.4963
 
 [node name="AnimationPlayer" parent="Assets/pmc_enemy" index="1"]
 autoplay = "IdleLoop1"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [editable path="Assets/pmc_enemy"]

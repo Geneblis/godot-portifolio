@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6305vhfdj22n"]
+[gd_scene load_steps=4 format=3 uid="uid://c6305vhfdj22n"]
 
 [ext_resource type="Script" uid="uid://cfp3mbwvqioo8" path="res://scripts/modules/boolet.gd" id="1_rrdbb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rrdbb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0ej0"]
 albedo_color = Color(0.802103, 0.818456, 0, 1)
@@ -10,6 +12,12 @@ emission_energy_multiplier = 16.0
 
 [node name="boolet" type="Node3D"]
 script = ExtResource("1_rrdbb")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.15, 0, 0, 0, -6.55671e-09, -0.15, 0, 0.15, -6.55671e-09, 0, 0.051536, 0)
+shape = SubResource("CapsuleShape3D_rrdbb")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00537602, 0.0546816, 0.00784206)
