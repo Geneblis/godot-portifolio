@@ -1,71 +1,102 @@
 extends CharacterBody3D
 
-@export var Target: Node3D
-@onready var model: Node3D = $Assets #rotate this!
-@onready var Sight: RayCast3D = $Assets/RayCast3D
-@onready var Anims: AnimationPlayer = $Assets/pmc_enemy/AnimationPlayer
-@onready var Agent: NavigationAgent3D = $NavigationAgent3D
+@export var target: Node3D
+@onready var model: Node3D                   = $Assets
+@onready var sight: RayCast3D                = $Assets/RayCast3D
+@onready var anims: AnimationPlayer          = $Assets/pmc_enemy/AnimationPlayer
+@onready var agent: NavigationAgent3D        = $NavigationAgent3D
+@onready var animation_tree: AnimationTree = $Assets/pmc_enemy/AnimationTree
 
-var Died = false
-var Seeing = false
-var TargetDetected = false
-var Crouching = false
+enum STATE {IDLE, MOVING, PRONE, PRONESHOOT, HIT, DEAD}
+var current_state = STATE.IDLE
 
-func _ready() -> void:
-	Anims.animation_finished.connect(_on_animation_finished)
+#region State Flags
+var died: bool = false
+var seeing: bool = false
+var target_detected: bool = false
+var crouching: bool = false
+var last_seen: Vector3 
+#endregion
 
-func _on_animation_finished(animation):
-	if animation == "Death2Stand" and Died:
+func _match_state(new_state: STATE):
+	if new_state == current_state:
+		return
+	current_state = new_state
+	
+	if current_state == STATE.IDLE:
+		target_detected = false
+		#anims.play("IdleLoop1")
+	elif current_state == STATE.MOVING:
+		crouching = false
+		#anims.play("WalkingStandLoop")
+	elif current_state == STATE.PRONE:
+		crouching = true
+		#anims.play("GoingProne")
+	elif current_state == STATE.PRONESHOOT:
+		pass
+		#anims.play("ShootingLoop")
+	elif current_state == STATE.HIT:
+		pass
+		#anims.play("CrouchFlinch")
+	elif current_state == STATE.DEAD:
+		#anims.play("Death1")
+		target_detected = false
+		seeing = false
+		died = true
+		await get_tree().create_timer(3.0).timeout
 		queue_free()
-	if animation == "GoingProne" and not Crouching:
-		Crouching = true
-	elif animation == "GoingProne" and Crouching:
-		Crouching = false
 
 func _physics_process(delta: float) -> void:
-	# vision cone
-	Sight.look_at(Target.global_position)
-	Sight.rotation.y = clamp(Sight.rotation.y, -PI/2,PI/2)
+	#debug
+	#print("State: " + str(current_state) + "\nseeing: " + str(seeing) + "\ncrouching: " + str(crouching))
 	
-	# if enemy has died:
-	if Died:
-		if Anims.current_animation != "Death2Stand":
-			Anims.play("Death2Stand")
-			TargetDetected = false
-			Crouching = false
-		
-	# if vision sees player...
-	if Sight.is_colliding() and not Died:
-		if Sight.get_collider() == Target:
-			TargetDetected = true
-			Seeing = true
-		else:
-			Seeing = false
-	else:
-		Seeing = false
-		
-	# if player was spotted:
-	if TargetDetected and not Died:
-		rotate_y(Sight.rotation.y * delta * 40)
-		if Seeing and not Crouching:
-			Anims.play("GoingProne")
-			velocity = Vector3.ZERO
-			
-		elif not Seeing and Crouching:
-			Anims.play_backwards("GoingProne")
-			velocity = Vector3.ZERO
-			
-		elif Seeing and Crouching:
-			Anims.play("ShootingLoop")
-			velocity = Vector3.ZERO
-			
-		else:
-			Anims.play("WalkingStandLoop")
-			Run()
-	move_and_slide()
+	# vision cone
+	sight.look_at(target.global_position)
+	sight.rotation.y = clamp(sight.rotation.y, -PI/2, PI/2)
 
-func Run():
-	Agent.target_position = Target.global_position
-	var CurrentPos = global_position
-	var NextPos = Agent.get_next_path_position()
-	velocity = Vector3(NextPos - CurrentPos).normalized() * 6
+	# if enemy has died
+	if died:
+		if current_state != STATE.DEAD:
+			_match_state(STATE.DEAD)
+
+	# if vision sees player...
+	if sight.is_colliding() and not died:
+		if sight.get_collider() == target:
+			last_seen = target.global_position
+			target_detected = true
+			seeing = true
+		else:
+			seeing = false
+	else:
+		seeing = false
+
+	# if player was spotted
+	if target_detected and not died:
+		if seeing and not crouching:
+			rotate_y(sight.rotation.y * delta * 40)
+			_match_state(STATE.PRONE)
+			velocity = Vector3.ZERO
+
+		elif not seeing and crouching:
+			crouching = false
+			velocity = Vector3.ZERO
+
+		elif seeing and crouching:
+			rotate_y(sight.rotation.y * delta * 40)
+			_match_state(STATE.PRONESHOOT)
+			velocity = Vector3.ZERO
+
+		else:
+			_match_state(STATE.MOVING)
+			run(delta)
+
+func run(delta: float) -> void:
+	agent.target_position = last_seen
+	if agent.is_navigation_finished():
+		velocity = Vector3.ZERO
+		_match_state(STATE.IDLE)
+	else:
+		var next_pos: Vector3 = agent.get_next_path_position()
+		var dir = (next_pos - global_position).normalized()
+		velocity = dir * 2.0
+	move_and_slide()

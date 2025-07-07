@@ -19,7 +19,7 @@ func _on_body_entered(body):
 		
 	# placeholder
 	if body.is_in_group("Enemy"):
-		body.Died = true
+		body.died = true
 	queue_free()
 	
 func _on_destroy_timer_timeout() -> void:

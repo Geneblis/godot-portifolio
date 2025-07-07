@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://biy8ebr3486c1"]
+[gd_scene load_steps=23 format=3 uid="uid://biy8ebr3486c1"]
 
 [ext_resource type="PackedScene" uid="uid://kclhxantkg5f" path="res://assets/models/enemy_pmc/pmc_enemy.gltf" id="1_dsgyj"]
 [ext_resource type="Script" uid="uid://cyi5x370t5oaf" path="res://scripts/enemy_pmc.gd" id="1_h6qwk"]
@@ -6,11 +6,104 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6qwk"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ijvw4"]
+animation = &"Death1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h6qwk"]
+animation = &"GoingProne"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u7u87"]
+animation = &"IdleLoop1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6lmf5"]
+animation = &"ShootingLoop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ayrlf"]
+animation = &"WalkingStandLoop"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ijvw4"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state == STATE.IDLE"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h6qwk"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state == STATE.PRONE"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6lmf5"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state != STATE.PRONE"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ayrlf"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state == STATE.PRONESHOOT"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iouud"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state == STATE.IDLE"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tbaw0"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state != STATE.MOVING"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qidmy"]
+xfade_time = 0.25
+advance_mode = 2
+advance_expression = "current_state == STATE.DEAD"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fgfjy"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state == STATE.DEAD"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1rvw8"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state == STATE.DEAD
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tr3ej"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state == STATE.DEAD"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u7u87"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state != STATE.PRONESHOOT"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3xbpp"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tr3ej"]
+states/Death1/node = SubResource("AnimationNodeAnimation_ijvw4")
+states/Death1/position = Vector2(472, 10)
+states/End/position = Vector2(776, 29)
+states/GoingProne/node = SubResource("AnimationNodeAnimation_h6qwk")
+states/GoingProne/position = Vector2(373, 203)
+states/IdleLoop1/node = SubResource("AnimationNodeAnimation_u7u87")
+states/IdleLoop1/position = Vector2(362, 111)
+"states/ShootingLoop 2/node" = SubResource("AnimationNodeAnimation_6lmf5")
+"states/ShootingLoop 2/position" = Vector2(618, 88)
+states/Start/position = Vector2(225, 116)
+states/WalkingStandLoop/node = SubResource("AnimationNodeAnimation_ayrlf")
+states/WalkingStandLoop/position = Vector2(575, 203)
+transitions = ["Start", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_ijvw4"), "IdleLoop1", "GoingProne", SubResource("AnimationNodeStateMachineTransition_h6qwk"), "GoingProne", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_6lmf5"), "GoingProne", "ShootingLoop 2", SubResource("AnimationNodeStateMachineTransition_ayrlf"), "GoingProne", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_iouud"), "WalkingStandLoop", "GoingProne", SubResource("AnimationNodeStateMachineTransition_tbaw0"), "IdleLoop1", "Death1", SubResource("AnimationNodeStateMachineTransition_qidmy"), "ShootingLoop 2", "Death1", SubResource("AnimationNodeStateMachineTransition_fgfjy"), "WalkingStandLoop", "Death1", SubResource("AnimationNodeStateMachineTransition_1rvw8"), "GoingProne", "Death1", SubResource("AnimationNodeStateMachineTransition_tr3ej"), "ShootingLoop 2", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_u7u87"), "Death1", "End", SubResource("AnimationNodeStateMachineTransition_3xbpp")]
+graph_offset = Vector2(-47, -18)
+
 [node name="enemy_pmc" type="CharacterBody3D" groups=["Enemy"]]
+collision_mask = 2
+safe_margin = 0.2
 script = ExtResource("1_h6qwk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.671671, -0.0918484)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.730143, -0.0918484)
 shape = SubResource("CapsuleShape3D_h6qwk")
 
 [node name="Assets" type="Node3D" parent="."]
@@ -23,59 +116,10 @@ target_position = Vector3(0, 0, -180)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Assets/pmc_enemy/Armature_010" index="0"]
-bones/0/position = Vector3(-0.203294, -0.142203, -108.789)
-bones/0/rotation = Quaternion(-0.498717, -0.470338, 0.561721, 0.463176)
-bones/1/rotation = Quaternion(-0.0163253, 0.019344, -0.0140454, 0.999581)
-bones/2/rotation = Quaternion(-0.0056357, 0.00686635, -0.012955, 0.999877)
-bones/3/rotation = Quaternion(-0.00552869, 0.00688182, -0.0129068, 0.999878)
-bones/4/position = Vector3(-6.49665e-07, 12.7274, -3.1665e-08)
-bones/4/rotation = Quaternion(0.0166899, 0.0459272, -0.0530985, 0.997393)
-bones/5/rotation = Quaternion(0.0189558, -0.0933871, -0.0267292, 0.995091)
-bones/7/position = Vector3(-0.16594, 9.78755, -6.37587)
-bones/7/rotation = Quaternion(-0.106925, -0.49965, 0.856885, -0.0683045)
 bones/7/bone_meta/test = NodePath("")
-bones/8/position = Vector3(-9.4385e-07, 14.1279, 1.42532e-05)
-bones/8/rotation = Quaternion(-0.0618753, 0.971488, 0.216054, -0.0755261)
-bones/9/position = Vector3(6.57022e-07, 18.0496, -7.40228e-06)
-bones/9/rotation = Quaternion(-0.0262671, -0.026034, -0.621637, 0.782432)
-bones/10/position = Vector3(-8.79139e-06, 32.0746, 8.98311e-07)
-bones/10/rotation = Quaternion(0.0750568, -0.871827, 0.0966937, 0.474272)
-bones/11/position = Vector3(3.40647e-07, 8.65813, 3.09163e-06)
-bones/11/rotation = Quaternion(-0.52856, -0.0463622, 0.0389556, 0.846733)
-bones/12/position = Vector3(9.53429e-07, 2.59254, -1.3819e-05)
-bones/12/rotation = Quaternion(-0.537292, 0.0503856, 0.156271, 0.82726)
-bones/13/position = Vector3(0.714406, 3.70021, 0.0483918)
-bones/13/rotation = Quaternion(-0.462457, 0.0163762, -0.173726, 0.869301)
-bones/14/position = Vector3(-0.365525, 1.24027, 0.500714)
-bones/14/rotation = Quaternion(3.65253e-09, 1, -1.16416e-10, -6.74045e-08)
-bones/15/position = Vector3(-0.214049, 9.79066, 6.37587)
-bones/15/rotation = Quaternion(0.817068, 0.0792045, -0.122619, 0.557756)
-bones/16/position = Vector3(4.87768e-07, 14.1279, -1.27859e-06)
-bones/16/rotation = Quaternion(0.260105, -0.160234, -0.136227, 0.942397)
-bones/17/position = Vector3(-2.91191e-06, 18.0756, -2.69572e-06)
-bones/17/rotation = Quaternion(0.0606041, 0.0345397, -0.75064, 0.657019)
-bones/18/position = Vector3(-3.7061e-06, 32.0434, -1.02515e-05)
-bones/18/rotation = Quaternion(0.220506, 0.314082, 0.138685, 0.91296)
-bones/19/position = Vector3(1.26436e-06, 9.61484, 1.55869e-06)
-bones/19/rotation = Quaternion(0.111006, 0.00530757, -0.00386382, 0.993798)
-bones/20/position = Vector3(-5.96232e-07, 2.33365, -6.96626e-06)
-bones/20/rotation = Quaternion(0.394131, -0.0193817, 0.102599, 0.913104)
-bones/21/position = Vector3(0.233385, 3.45248, 0.414557)
-bones/21/rotation = Quaternion(0.856964, -0.00873511, 0.060817, 0.511701)
-bones/22/position = Vector3(-0.00943679, 0.696238, -0.634886)
-bones/23/rotation = Quaternion(0.105066, -0.0294332, 0.992045, -0.0627836)
-bones/24/position = Vector3(1.67903e-06, 46.3934, -3.72559e-07)
-bones/24/rotation = Quaternion(-0.024802, -0.0663355, -0.114021, 0.990951)
-bones/25/rotation = Quaternion(0.249554, -0.688015, 0.269253, 0.625988)
-bones/26/rotation = Quaternion(0.386123, -0.221584, 0.0961034, 0.890266)
-bones/27/position = Vector3(5.96036e-08, 6.74206, -4.76842e-07)
-bones/28/rotation = Quaternion(-0.134483, 0.0496163, 0.98947, 0.0200487)
-bones/29/rotation = Quaternion(0.0479619, 0.0754803, -0.213691, 0.972799)
-bones/30/rotation = Quaternion(0.386943, -0.525066, 0.378608, 0.656686)
-bones/31/rotation = Quaternion(0.398664, 0.232793, -0.094168, 0.882047)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Assets/pmc_enemy/Armature_010/Skeleton3D" index="0"]
-transform = Transform3D(0.226535, 0.881671, 0.41393, 0.294705, 0.343013, -0.891903, -0.928349, 0.324034, -0.182128, -5.95571, 28.3732, -129.715)
+transform = Transform3D(0.99664, 0.0413852, 0.0706873, 0.0711174, -0.00901438, -0.997427, -0.0406415, 0.999103, -0.0119273, 1.24583, 28.3503, -95.9349)
 bone_name = "mixamorig_RightHand"
 bone_idx = 18
 
@@ -84,6 +128,11 @@ transform = Transform3D(-16.6697, 76.7656, -15.1375, -0.197973, 15.4358, 78.4963
 
 [node name="AnimationPlayer" parent="Assets/pmc_enemy" index="1"]
 autoplay = "IdleLoop1"
+
+[node name="AnimationTree" type="AnimationTree" parent="Assets/pmc_enemy"]
+tree_root = SubResource("AnimationNodeStateMachine_tr3ej")
+advance_expression_base_node = NodePath("../../..")
+anim_player = NodePath("../AnimationPlayer")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

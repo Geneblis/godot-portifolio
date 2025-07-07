@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://ckgrjtvq6fl5h"]
+[gd_scene load_steps=18 format=3 uid="uid://ckgrjtvq6fl5h"]
 
 [ext_resource type="PackedScene" uid="uid://hycacsio874m" path="res://scenes/player.tscn" id="1_5lqpt"]
 [ext_resource type="PackedScene" uid="uid://pi1l7j5o5ado" path="res://scenes/hostile.tscn" id="2_gawm5"]
 [ext_resource type="PackedScene" uid="uid://biy8ebr3486c1" path="res://scenes/enemy_pmc.tscn" id="3_4eyuj"]
+[ext_resource type="Script" uid="uid://b44p3rofgr0gk" path="res://scripts/enemy_spawner.gd" id="4_cmxnd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5lqpt"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -40,7 +41,18 @@ material = SubResource("StandardMaterial3D_cmxnd")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4eyuj"]
 points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4eyuj"]
+transparency = 1
+albedo_color = Color(1, 0.629762, 0.765374, 0.286275)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cmxnd"]
+material = SubResource("StandardMaterial3D_4eyuj")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cmxnd"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
 [node name="world_1" type="Node3D"]
+script = ExtResource("4_cmxnd")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4eyuj")
@@ -80,7 +92,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 1)
 [node name="Hostile" parent="Entities" instance=ExtResource("2_gawm5")]
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 19.1703, 3.5, -17.8809)
 
-[node name="enemy_pmc" parent="Entities" node_paths=PackedStringArray("Target") instance=ExtResource("3_4eyuj")]
+[node name="enemy_pmc" parent="Entities" node_paths=PackedStringArray("target") instance=ExtResource("3_4eyuj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5469, 2.46139, 5.86539)
 floor_constant_speed = true
-Target = NodePath("../player")
+safe_margin = 0.025
+target = NodePath("../player")
+
+[node name="EnemySpawner" type="Marker3D" parent="Entities"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6608, 2.59917, 8.07818)
+
+[node name="EnemySpawner2" type="Marker3D" parent="Entities/EnemySpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00789, 0, 0)
+
+[node name="EnemySpawner3" type="Marker3D" parent="Entities/EnemySpawner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00789, 0, 1.91557)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(12.1204, 0, 0, 0, 4.70139, 0, 0, 0, 1, -3.04593, 4.27892, 12.7773)
+mesh = SubResource("BoxMesh_cmxnd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_cmxnd")
