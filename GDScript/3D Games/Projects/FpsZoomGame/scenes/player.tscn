@@ -1,23 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://hycacsio874m"]
+[gd_scene load_steps=8 format=3 uid="uid://hycacsio874m"]
 
 [ext_resource type="Script" uid="uid://cqv5exw0v88p3" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://da6ip25ja1joa" path="res://scenes/auto_rifle.tscn" id="2_g2els"]
 [ext_resource type="Script" uid="uid://cg0qxmkbqbgg3" path="res://scripts/player_weapon_handler.gd" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://m1uu1658ja76" path="res://scripts/player_camera.gd" id="2_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://dhl124q2cb3d5" path="res://scenes/heavy_pistol.tscn" id="4_dqkch"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqkch"]
 
-[node name="Player" type="CharacterBody3D" groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder") groups=["Player"]]
 safe_margin = 0.1
 script = ExtResource("1_3vyb7")
+weapon_holder = NodePath("HeadNode/Camera3D/Hand")
 
 [node name="HeadNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.397923, 0)
 
 [node name="Camera3D" type="Camera3D" parent="HeadNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.606323, -0.193975)
+script = ExtResource("2_qlg0r")
 
 [node name="Hand" type="Node3D" parent="HeadNode/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.216157, 0)
