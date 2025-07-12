@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://hycacsio874m"]
+[gd_scene load_steps=9 format=3 uid="uid://hycacsio874m"]
 
 [ext_resource type="Script" uid="uid://cqv5exw0v88p3" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://da6ip25ja1joa" path="res://scenes/auto_rifle.tscn" id="2_g2els"]
 [ext_resource type="Script" uid="uid://cg0qxmkbqbgg3" path="res://scripts/player_weapon_handler.gd" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://m1uu1658ja76" path="res://scripts/player_camera.gd" id="2_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://dhl124q2cb3d5" path="res://scenes/heavy_pistol.tscn" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://bux2vaxf5bve1" path="res://scripts/crosshair.gd" id="6_tuyoq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 
@@ -28,7 +29,6 @@ script = ExtResource("2_qhqgy")
 
 [node name="M4A1" parent="HeadNode/Camera3D/Hand" instance=ExtResource("2_g2els")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.369239, -0.232451, -0.50003)
-visible = false
 
 [node name="heavy_pistol" parent="HeadNode/Camera3D/Hand" instance=ExtResource("4_dqkch")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.370299, -0.224605, -0.51425)
@@ -39,3 +39,46 @@ mesh = SubResource("CapsuleMesh_u8vuu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_dqkch")
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="Cross" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("RETICLE_LINES", "PLAYER_CONTROLLER")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_right = 49.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_tuyoq")
+RETICLE_LINES = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
+PLAYER_CONTROLLER = NodePath("../..")
+
+[node name="Top" type="Line2D" parent="UserInterface/Cross"]
+points = PackedVector2Array(0, -5, 0, -15)
+width = 2.0
+
+[node name="Left" type="Line2D" parent="UserInterface/Cross"]
+points = PackedVector2Array(-5, 0, -15, 0)
+width = 2.0
+
+[node name="Right" type="Line2D" parent="UserInterface/Cross"]
+points = PackedVector2Array(5, 0, 15, 0)
+width = 2.0
+
+[node name="Bottom" type="Line2D" parent="UserInterface/Cross"]
+points = PackedVector2Array(0, 5, 0, 15)
+width = 2.0

@@ -1,18 +1,12 @@
 extends Camera3D
 
-##Mover isso pro handler das armas como funcao... Tudo isso.
-
-# Camera shake on continuous shooting:
-# - While “shoot” is held, triggers repeated shake bursts.
-# - Odd-numbered bursts tilt up; even-numbered bursts tilt down.
-# - Shake intensity decays over each burst.
-
 @export var max_shake_degrees: float    = 0.7   # starting shake amplitude (degrees)
 @export var burst_duration: float       = 0.05    # seconds per shake burst
 
 var _base_rotation: Vector3
 var _remaining_shake_time: float = 0.0
 var _next_shake_direction: int = 1  # 1 = up, -1 = down
+@onready var hand: Node3D = $Hand
 
 func _ready() -> void:
 	_base_rotation = rotation_degrees

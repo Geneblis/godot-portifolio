@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="FpsZoomGame"
+run/main_scene="uid://ckgrjtvq6fl5h"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
