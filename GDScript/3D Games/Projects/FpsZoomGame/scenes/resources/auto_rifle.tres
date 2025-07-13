@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Weapon_Base" load_steps=3 format=3 uid="uid://diltv0x1u0owh"]
+
+[ext_resource type="Script" uid="uid://bi3bp2dmdr6fl" path="res://scenes/resources/weapon_base.gd" id="1_064xm"]
+[ext_resource type="PackedScene" uid="uid://c6305vhfdj22n" path="res://scenes/boolet.tscn" id="1_birbx"]
+
+[resource]
+script = ExtResource("1_064xm")
+weapon_name = "Automatic Rifle"
+activate_anim = ""
+shoot_anim = ""
+reload_anim = ""
+deactivate_anim = ""
+out_of_ammo_anim = ""
+damage = 10
+current_ammo = 30
+reserve_ammo = 65
+magazine_size = 30
+max_ammo = 120
+auto_fire = true
+fire_rate = 0.1
+reload_time = 1.5
+recoil_strength = 2.0
+bullet_scene = ExtResource("1_birbx")
+metadata/_custom_type_script = "uid://bi3bp2dmdr6fl"

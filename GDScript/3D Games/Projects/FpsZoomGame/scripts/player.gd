@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @onready var head = $HeadNode
 @onready var cam  = $HeadNode/Camera3D
+@onready var hand: Node3D = $HeadNode/Camera3D/Hand
 
 const MOUSE_SENSIVITY = 0.2
 const GRAVITY = 10
@@ -80,6 +81,11 @@ func _input(event: InputEvent) -> void: #begin
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -90, 60)
 		self.rotate_y(deg_to_rad(event.relative.x * -MOUSE_SENSIVITY))
 		mouse_input = event.relative
+		
+	if event.is_action_pressed("save"):
+		_save_weapons_to_file()
+	elif event.is_action_pressed("load"):
+		_load_weapons_from_file()
 #	end
 
 func headbob(speed): #begin
@@ -102,3 +108,50 @@ func sway(delta):
 		(weapon_rotation_amount/16), 10 * delta)
 		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, mouse_input.x * 
 		(weapon_rotation_amount/16), 10 * delta)
+		
+func _save_weapons_to_file() -> void:
+	var save_data := {"weapons": []}
+	for weapon in hand.get_children():
+		var ds = weapon.get("dup_state")
+		if ds != null:
+			save_data["weapons"].append({
+				"weapon_name":  ds.weapon_name,
+				"current_ammo": ds.current_ammo,
+				"reserve_ammo": ds.reserve_ammo
+			})
+
+	var file = FileAccess.open("user://weapons_save.json", FileAccess.WRITE)
+	file.store_string(JSON.stringify(save_data, "\t"))
+	file.close()
+	print("✅ Weapons saved:", save_data)
+
+func _load_weapons_from_file() -> void:
+	var path = "user://weapons_save.json"
+	if not FileAccess.file_exists(path):
+		print("⚠️ No save file found.")
+		return
+
+	var file = FileAccess.open(path, FileAccess.READ)
+	var text = file.get_as_text()
+	file.close()
+
+	var json = JSON.new()
+	var err = json.parse(text)
+	if err != OK:
+		print("⚠️ Failed to parse JSON. Error code:", err)
+		return
+
+	var data = json.get_data()
+	if typeof(data) != TYPE_DICTIONARY:
+		print("⚠️ Save format invalid: root is not a Dictionary.")
+		return
+
+	for entry in data.get("weapons", []):
+		var name = entry.get("weapon_name", "")
+		for weapon in hand.get_children():
+			var ds = weapon.get("dup_state")
+			if ds != null and ds.weapon_name == name:
+				ds.current_ammo = entry.get("current_ammo", ds.current_ammo)
+				ds.reserve_ammo = entry.get("reserve_ammo", ds.reserve_ammo)
+
+	print("✅ Weapons loaded!")

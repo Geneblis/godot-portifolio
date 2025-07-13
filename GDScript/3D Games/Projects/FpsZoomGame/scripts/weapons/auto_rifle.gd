@@ -1,8 +1,7 @@
 extends Node3D
 
-@export var damage = 1.0
-@export var bullet_speed = 50.0  # ajuste à vontade
-
+@export var stats : Resource
+@onready var dup_state : Resource = stats.duplicate()
 @onready var anim  = $AnimationPlayer
 @onready var shoot = $Shoot
 @onready var ray   = $RayCast3D
@@ -10,21 +9,34 @@ extends Node3D
 @onready var weapon: Node3D = $Model/M4A1
 @onready var muzzle: GPUParticles3D = $RayCast3D/Nose/GPUParticles3D
 var randomMuzzlePos = randf_range(0, 180)
-
-const BULLET = preload("res://scenes/boolet.tscn")
-
 var can_shoot = false
 
 func _process(delta):
-	if Input.is_action_pressed("shoot") and can_shoot and not anim.is_playing():
+	if Input.is_action_pressed("shoot") and can_shoot and not anim.is_playing() and dup_state.current_ammo <= 0:
+		if dup_state["reserve_ammo"] >= 0:
+			# nao pode ser um valor menor q 0.
+			dup_state["reserve_ammo"] = max(dup_state["reserve_ammo"] - dup_state["magazine_size"], 0)
+			# nao pode ser um valor maior q a magazine
+			dup_state.current_ammo = min(dup_state["reserve_ammo"], dup_state["magazine_size"])
+			print("current:")
+			print(dup_state["current_ammo"])
+			print("stock:")
+			print(dup_state["reserve_ammo"])
+		else:
+			print(dup_state["reserve_ammo"])
+			
+	if Input.is_action_pressed("shoot") and can_shoot and not anim.is_playing() and dup_state.current_ammo > 0:
 		anim.play("shoot")
 		shoot.play()
 		can_shoot = false
 		
 		#disparo
-		var b = BULLET.instantiate()
+		var b = stats.bullet_scene.instantiate()
 		
-		b.damage = damage
+		#contagem
+		dup_state.current_ammo -= 1
+		print(dup_state["current_ammo"])
+		b.damage = dup_state.damage
 		b.global_transform = nose.global_transform
 		get_tree().current_scene.add_child(b)
 		
@@ -33,7 +45,7 @@ func _process(delta):
 			var target = ray.get_collider()
 			#begin
 			if target.is_in_group("enemy"):
-				target.hp -= damage
+				target.hp -= dup_state.damage
 				#end
 			#end
 		#end
