@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4jv66a50liov"]
+
+[ext_resource type="Script" uid="uid://c45xi7e0ba714" path="res://scenes/main/main_control.gd" id="1_6ab7e"]
+
+[node name="MainControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_6ab7e")
+
+[node name="ListContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ItemInput" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Add" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Add"
+
+[node name="Remove" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Remove"
+
+[node name="Clear" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Clear"
