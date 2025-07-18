@@ -15,6 +15,7 @@ var currentvel = Vector3.ZERO
 var velocity_y = 0
 var mouse_locked = true
 var mouse_input : Vector2
+
 #viewbob
 const BOB_FREQ = 1.8
 const BOB_AMP = 0.05
@@ -74,8 +75,7 @@ func _physics_process(delta: float) -> void:
 	sway(delta)
 #	end
 
-func _input(event: InputEvent) -> void: #begin
-	# checks if mouse is moving
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion: # movimento da camera relativo ao mouse
 		head.rotate_x(deg_to_rad(event.relative.y * -MOUSE_SENSIVITY))
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x, -90, 60)
@@ -108,7 +108,8 @@ func sway(delta):
 		(weapon_rotation_amount/16), 10 * delta)
 		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, mouse_input.x * 
 		(weapon_rotation_amount/16), 10 * delta)
-		
+
+#region Salvamento e Carregamento de saves
 func _save_weapons_to_file() -> void:
 	var save_data := {"weapons": []}
 	for weapon in hand.get_children():
@@ -123,7 +124,7 @@ func _save_weapons_to_file() -> void:
 	var file = FileAccess.open("user://weapons_save.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(save_data, "\t"))
 	file.close()
-	print("✅ Weapons saved:", save_data)
+	print("Weapons saved:", save_data)
 
 func _load_weapons_from_file() -> void:
 	var path = "user://weapons_save.json"
@@ -153,5 +154,6 @@ func _load_weapons_from_file() -> void:
 			if ds != null and ds.weapon_name == name:
 				ds.current_ammo = entry.get("current_ammo", ds.current_ammo)
 				ds.reserve_ammo = entry.get("reserve_ammo", ds.reserve_ammo)
+	print("Weapons loaded!")
 
-	print("✅ Weapons loaded!")
+#endregion

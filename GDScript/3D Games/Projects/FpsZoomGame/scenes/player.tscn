@@ -20,9 +20,10 @@ weapon_holder = NodePath("HeadNode/Camera3D/Hand")
 [node name="HeadNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.397923, 0)
 
-[node name="Camera3D" type="Camera3D" parent="HeadNode"]
+[node name="Camera3D" type="Camera3D" parent="HeadNode" node_paths=PackedStringArray("head_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.606323, -0.193975)
 script = ExtResource("2_qlg0r")
+head_node = NodePath("..")
 
 [node name="Hand" type="Node3D" parent="HeadNode/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.216157, 0)
