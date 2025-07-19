@@ -1,12 +1,14 @@
 extends CharacterBody3D
 
-@export var target: Node3D
-@onready var model: Node3D                   = $Assets
-@onready var sight: RayCast3D                = $Assets/RayCast3D
-@onready var anims: AnimationPlayer          = $Assets/pmc_enemy/AnimationPlayer
-@onready var agent: NavigationAgent3D        = $NavigationAgent3D
-@onready var animation_tree: AnimationTree = $Assets/pmc_enemy/AnimationTree
+@export var target: Node3D                 #set in main-scene
 
+@export var model: Node3D                  #normally a node named Assets with all visuals
+@export var sight: RayCast3D
+@export var anims: AnimationPlayer
+@export var agent: NavigationAgent3D
+@export var animation_tree: AnimationTree
+
+#troca tudo por exports
 enum STATE {IDLE, MOVING, PRONE, PRONESHOOT, HIT, DEAD}
 var current_state = STATE.IDLE
 

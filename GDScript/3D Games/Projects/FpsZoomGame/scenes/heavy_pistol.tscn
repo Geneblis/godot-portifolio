@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dhl124q2cb3d5"]
 
-[ext_resource type="Script" uid="uid://bfvf5gn7c2muf" path="res://scripts/weapons/heavy_pistol.gd" id="1_0b7ko"]
+[ext_resource type="Script" uid="uid://clhnngi65osuk" path="res://scripts/weapons/weapon_class.gd" id="1_xm7ek"]
 [ext_resource type="PackedScene" uid="uid://c361uqh6d53k4" path="res://assets/models/weapons/pistols/deagle/deagle.glb" id="2_xm7ek"]
 [ext_resource type="AudioStream" uid="uid://irvql84sl00j" path="res://assets/audio/weapons/556 Single Isolated WAV.wav" id="3_pd7cy"]
 [ext_resource type="Texture2D" uid="uid://bvsplma43rknn" path="res://assets/textures/effects/bullet/Muzzle_flash_VFX_3.png" id="4_xm7ek"]
@@ -111,8 +111,16 @@ _data = {
 &"unequip": SubResource("Animation_vgbe4")
 }
 
-[node name="heavy_pistol" type="Node3D"]
-script = ExtResource("1_0b7ko")
+[node name="heavy_pistol" type="Node3D" node_paths=PackedStringArray("weapon_nose", "ray", "shoot", "anim", "muzzle")]
+script = ExtResource("1_xm7ek")
+damage = 50.0
+bullet_speed = 12.0
+weapon_nose = NodePath("RayCast3D/Nose")
+ray = NodePath("RayCast3D")
+shoot = NodePath("Shoot")
+anim = NodePath("AnimationPistolPlayer")
+muzzle = NodePath("RayCast3D/Nose/GPUParticles3D")
+metadata/_custom_type_script = "uid://clhnngi65osuk"
 
 [node name="Model" type="Node3D" parent="."]
 
@@ -145,5 +153,3 @@ draw_pass_1 = SubResource("PlaneMesh_vgbe4")
 libraries = {
 &"": SubResource("AnimationLibrary_xm7ek")
 }
-
-[connection signal="animation_finished" from="AnimationPistolPlayer" to="." method="_on_animation_pistol_player_animation_finished"]

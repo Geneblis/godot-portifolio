@@ -97,10 +97,15 @@ states/WalkingStandLoop/position = Vector2(575, 203)
 transitions = ["Start", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_ijvw4"), "IdleLoop1", "GoingProne", SubResource("AnimationNodeStateMachineTransition_h6qwk"), "GoingProne", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_6lmf5"), "GoingProne", "ShootingLoop 2", SubResource("AnimationNodeStateMachineTransition_ayrlf"), "GoingProne", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_iouud"), "WalkingStandLoop", "GoingProne", SubResource("AnimationNodeStateMachineTransition_tbaw0"), "IdleLoop1", "Death1", SubResource("AnimationNodeStateMachineTransition_qidmy"), "ShootingLoop 2", "Death1", SubResource("AnimationNodeStateMachineTransition_fgfjy"), "WalkingStandLoop", "Death1", SubResource("AnimationNodeStateMachineTransition_1rvw8"), "GoingProne", "Death1", SubResource("AnimationNodeStateMachineTransition_tr3ej"), "ShootingLoop 2", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_u7u87"), "Death1", "End", SubResource("AnimationNodeStateMachineTransition_3xbpp")]
 graph_offset = Vector2(-49, -15)
 
-[node name="enemy_pmc" type="CharacterBody3D" groups=["Enemy"]]
+[node name="enemy_pmc" type="CharacterBody3D" node_paths=PackedStringArray("model", "sight", "anims", "agent", "animation_tree") groups=["Enemy"]]
 collision_mask = 2
 safe_margin = 0.2
 script = ExtResource("1_h6qwk")
+model = NodePath("Assets")
+sight = NodePath("Assets/RayCast3D")
+anims = NodePath("Assets/pmc_enemy/AnimationPlayer")
+agent = NodePath("NavigationAgent3D")
+animation_tree = NodePath("Assets/pmc_enemy/AnimationTree")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.730143, -0.0918484)
