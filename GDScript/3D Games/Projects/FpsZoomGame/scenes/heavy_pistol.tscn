@@ -1,9 +1,37 @@
-[gd_scene load_steps=13 format=3 uid="uid://dhl124q2cb3d5"]
+[gd_scene load_steps=17 format=3 uid="uid://dhl124q2cb3d5"]
 
 [ext_resource type="Script" uid="uid://clhnngi65osuk" path="res://scripts/weapons/weapon_class.gd" id="1_xm7ek"]
+[ext_resource type="Script" uid="uid://bi3bp2dmdr6fl" path="res://scenes/resources/weapon_base.gd" id="2_pd7cy"]
+[ext_resource type="PackedScene" uid="uid://c6305vhfdj22n" path="res://scenes/boolet.tscn" id="2_vgbe4"]
 [ext_resource type="PackedScene" uid="uid://c361uqh6d53k4" path="res://assets/models/weapons/pistols/deagle/deagle.glb" id="2_xm7ek"]
 [ext_resource type="AudioStream" uid="uid://irvql84sl00j" path="res://assets/audio/weapons/556 Single Isolated WAV.wav" id="3_pd7cy"]
 [ext_resource type="Texture2D" uid="uid://bvsplma43rknn" path="res://assets/textures/effects/bullet/Muzzle_flash_VFX_3.png" id="4_xm7ek"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vgbe4"]
+streams_count = 1
+stream_0/stream = ExtResource("3_pd7cy")
+
+[sub_resource type="Resource" id="Resource_vgbe4"]
+script = ExtResource("2_pd7cy")
+weapon_name = "Heavy Pistol"
+damage = 50
+current_ammo = 7
+reserve_ammo = 32
+magazine_size = 7
+max_ammo = 64
+auto_fire = false
+raycast = false
+fire_rate = 2.0
+reload_time = 1.5
+recoil_strength = 15.0
+weapon_nose = NodePath("RayCast3D/Nose")
+raycast_node = NodePath("RayCast3D")
+animation_player = NodePath("AnimationPistolPlayer")
+muzzle = NodePath("RayCast3D/Nose/GPUParticles3D")
+bullet_scene = ExtResource("2_vgbe4")
+shoot_sounds = SubResource("AudioStreamRandomizer_vgbe4")
+sound_player = NodePath("GunSound")
+metadata/_custom_type_script = "uid://bi3bp2dmdr6fl"
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pd7cy"]
 gravity = Vector3(0, 0, 0)
@@ -111,26 +139,15 @@ _data = {
 &"unequip": SubResource("Animation_vgbe4")
 }
 
-[node name="heavy_pistol" type="Node3D" node_paths=PackedStringArray("weapon_nose", "ray", "shoot", "anim", "muzzle")]
+[node name="heavy_pistol" type="Node3D"]
 script = ExtResource("1_xm7ek")
-damage = 50.0
-bullet_speed = 12.0
-weapon_nose = NodePath("RayCast3D/Nose")
-ray = NodePath("RayCast3D")
-shoot = NodePath("Shoot")
-anim = NodePath("AnimationPistolPlayer")
-muzzle = NodePath("RayCast3D/Nose/GPUParticles3D")
+stats = SubResource("Resource_vgbe4")
 metadata/_custom_type_script = "uid://clhnngi65osuk"
 
 [node name="Model" type="Node3D" parent="."]
 
 [node name="deagle" parent="Model" instance=ExtResource("2_xm7ek")]
 transform = Transform3D(-3.61999e-07, 0, -0.1, 0, 0.1, 0, 0.1, 0, -3.61999e-07, 0.0385673, -0.0362103, 0)
-
-[node name="Shoot" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_pd7cy")
-volume_db = -5.622
-pitch_scale = 0.8
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.244992, 0.101821, 0)
@@ -153,3 +170,6 @@ draw_pass_1 = SubResource("PlaneMesh_vgbe4")
 libraries = {
 &"": SubResource("AnimationLibrary_xm7ek")
 }
+
+[node name="GunSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.239807, 0.102278, 0)

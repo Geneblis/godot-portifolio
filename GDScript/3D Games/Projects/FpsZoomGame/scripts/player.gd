@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+const SAVE_PATH := "user://weapons_save.ini"
 @onready var head = $HeadNode
 @onready var cam  = $HeadNode/Camera3D
 @onready var hand: Node3D = $HeadNode/Camera3D/Hand
@@ -109,51 +110,49 @@ func sway(delta):
 		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, mouse_input.x * 
 		(weapon_rotation_amount/16), 10 * delta)
 
-#region Salvamento e Carregamento de saves
+#region Salvamento e Carregamento com ConfigFile
 func _save_weapons_to_file() -> void:
-	var save_data := {"weapons": []}
+	
+	# Cria um ConfigFile limpo
+	var cfg := ConfigFile.new()
+	# Prepara o estado do inventário de armas
+	var inventory_status := []
 	for weapon in hand.get_children():
 		var ds = weapon.get("dup_state")
 		if ds != null:
-			save_data["weapons"].append({
+			inventory_status.append({
 				"weapon_name":  ds.weapon_name,
 				"current_ammo": ds.current_ammo,
 				"reserve_ammo": ds.reserve_ammo
 			})
-
-	var file = FileAccess.open("user://weapons_save.json", FileAccess.WRITE)
-	file.store_string(JSON.stringify(save_data, "\t"))
-	file.close()
-	print("Weapons saved:", save_data)
+	# Grava o Array<Dictionary> na seção "weapons", chave "inventory_status"
+	cfg.set_value("weapons", "inventory_status", inventory_status)
+	var err = cfg.save(SAVE_PATH)
+	if err != OK:
+		push_error("❌ Não foi possível salvar em %s" % SAVE_PATH)
+	else:
+		print("✅ Weapons saved:", inventory_status)
 
 func _load_weapons_from_file() -> void:
-	var path = "user://weapons_save.json"
-	if not FileAccess.file_exists(path):
-		print("⚠️ No save file found.")
-		return
-
-	var file = FileAccess.open(path, FileAccess.READ)
-	var text = file.get_as_text()
-	file.close()
-
-	var json = JSON.new()
-	var err = json.parse(text)
+	var cfg := ConfigFile.new()
+	var err = cfg.load(SAVE_PATH)
 	if err != OK:
-		print("⚠️ Failed to parse JSON. Error code:", err)
+		print("⚠️ Nenhum arquivo de save encontrado em", SAVE_PATH)
 		return
 
-	var data = json.get_data()
-	if typeof(data) != TYPE_DICTIONARY:
-		print("⚠️ Save format invalid: root is not a Dictionary.")
+	# Recupera o Array<Dictionary> salvo ou usa lista vazia
+	var inventory_status = cfg.get_value("weapons", "inventory_status", [])
+	if typeof(inventory_status) != TYPE_ARRAY:
+		push_error("Formato inválido: esperava um Array de Dictionary em 'inventory_status'")
 		return
 
-	for entry in data.get("weapons", []):
+	# Aplica cada entrada de volta aos dup_state das armas na cena
+	for entry in inventory_status:
 		var name = entry.get("weapon_name", "")
 		for weapon in hand.get_children():
 			var ds = weapon.get("dup_state")
 			if ds != null and ds.weapon_name == name:
 				ds.current_ammo = entry.get("current_ammo", ds.current_ammo)
 				ds.reserve_ammo = entry.get("reserve_ammo", ds.reserve_ammo)
-	print("Weapons loaded!")
-
+	print("✅ Weapons loaded!")
 #endregion
