@@ -5,7 +5,7 @@ var _base_rotation: Vector3 = Vector3.ZERO
 var _current_recoil: float = 0.0           # recoil acumulado
 var _current_rotation: float               # rotação da cabeça
 
-@export var recoil_speed: float       =   5.0    # quanto ganha de recoil por segundo
+@export var recoil_speed: float       =   6.0    # quanto ganha de recoil por segundo
 @export var head_node: Node3D
 
 func _process(delta: float) -> void:
