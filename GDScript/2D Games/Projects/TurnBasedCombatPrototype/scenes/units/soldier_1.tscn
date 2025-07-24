@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://hdk5quehagen"]
+
+[ext_resource type="Script" uid="uid://728xdpexvh7" path="res://scenes/units/unit_soldier_class.gd" id="1_62a3y"]
+[ext_resource type="PackedScene" uid="uid://dxm6lnfwrlle1" path="res://scenes/weapon/m16.tscn" id="2_gfc0f"]
+[ext_resource type="Texture2D" uid="uid://b1a65jlw27p18" path="res://icon.svg" id="3_weu5y"]
+
+[node name="Soldier1" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_62a3y")
+nome = "Soldier One"
+sprite = NodePath("Sprite2D")
+weapons_data = [ExtResource("2_gfc0f"), null, null]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.342889, 0.197726, 1)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_weu5y")

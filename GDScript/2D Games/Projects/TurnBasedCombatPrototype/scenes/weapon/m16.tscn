@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxm6lnfwrlle1"]
+
+[ext_resource type="Script" uid="uid://dkjalmlsa0kmw" path="res://scenes/weapon/weapon_class.gd" id="1_sn4f5"]
+[ext_resource type="Texture2D" uid="uid://b1a65jlw27p18" path="res://icon.svg" id="2_sm4er"]
+
+[node name="M16" type="Node2D"]
+script = ExtResource("1_sn4f5")
+weapon_name = "M16A2"
+weapon_type = 1
+damage = 15
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 1, 1)
+texture = ExtResource("2_sm4er")

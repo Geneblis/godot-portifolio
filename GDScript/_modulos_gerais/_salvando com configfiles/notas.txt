@@ -1,0 +1,50 @@
+#seção > chave > valor
+
+func save():
+	var cfg = ConfigFile.new()
+	
+	var information_dictionary := []
+	information_dictionary.append({
+		"stuff": "very important stuff",
+		"moare stuff": [1,2,3]
+	})
+	cfg.set_value("important", "conglomarate_of_sheet", information_dictionary)
+	cfg.set_value("PlayerStats", "Health", 100)
+	cfg.set_value("PlayerStats", "Psyche", 35)
+	var JoeMamamStats := []
+	JoeMamamStats.append({
+		#Health = 5,
+		#Psyche = 10
+		
+		#funciona igual no lugar do : mas a engine ja converte para 2 pontos.
+		"Health": 5,
+		"Psyche": 10
+	})
+	cfg.set_value("JoeStats", "Stats", JoeMamamStats)
+	
+	
+	cfg.save(SAVE_FILE)
+	print("saved!")
+
+func _load():
+	var cfg = ConfigFile.new()
+	var config = cfg.load(SAVE_FILE)
+	
+	#pegando dados de uma chave direto
+	#seção > chave > valor
+
+	var pHealth = cfg.get_value("PlayerStats", "Health")
+	print(pHealth)
+
+	#pegando dados de um array ou dicionário
+	var player_name = cfg.get_value("important", "conglomarate_of_sheet", [])#estou aguardando um Array.
+	for i in player_name:
+		#vai dentro de player_name e pega o valor da chave "stuff"
+		var f = i.get("stuff")
+		print(f)
+		
+	var joe = cfg.get_value("JoeStats", "Stats", [])
+	for i in joe:
+		#vai dentro de player_name e pega o valor da chave "stuff"
+		var f = i.get("Health")
+		print(f)
