@@ -9,8 +9,12 @@ func save():
 		"moare stuff": [1,2,3]
 	})
 	cfg.set_value("important", "conglomarate_of_sheet", information_dictionary)
+	
+
+	#Sim, da pra definir tudo isso com um loop
 	cfg.set_value("PlayerStats", "Health", 100)
 	cfg.set_value("PlayerStats", "Psyche", 35)
+	
 	var JoeMamamStats := []
 	JoeMamamStats.append({
 		#Health = 5,
@@ -37,7 +41,7 @@ func _load():
 	print(pHealth)
 
 	#pegando dados de um array ou dicionário
-	var player_name = cfg.get_value("important", "conglomarate_of_sheet", [])#estou aguardando um Array.
+	var player_name = cfg.get_value("important", "conglomarate_of_sheet", []) #Valor default é um Array vazio.
 	for i in player_name:
 		#vai dentro de player_name e pega o valor da chave "stuff"
 		var f = i.get("stuff")
