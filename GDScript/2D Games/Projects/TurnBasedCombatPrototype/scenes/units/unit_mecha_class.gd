@@ -4,7 +4,7 @@
 # dados básicos: nome, vida, rating e inventário de armas.
 #----------------------------------------------
 extends Node2D
-class_name UnitSoldierClass
+class_name UnitMechaClass
 
 # ENUM para classificação de performance
 enum Rating { E, D, C, B, A, S }
@@ -17,7 +17,6 @@ enum Type {Soldier, Mobile}
 @export var unit_type: Type = Type.Soldier
 @export var sprite: Sprite2D
 @export var animated_sprite: AnimatedSprite2D
-@onready var progress_bar: ProgressBar = $PanelContainer/ProgressBar
 
 # Inventário de armas: Array de Dictionary
 # Cada Dictionary deve conter:
@@ -66,7 +65,6 @@ func apply_damage(amount: int) -> void:
 	hp = max(hp - amount, 0)
 	if hp == 0:
 		_on_death()
-	progress_bar.value = hp
 
 func _on_death() -> void:
 	# Pode emitir sinal ou notificar o CombatManager

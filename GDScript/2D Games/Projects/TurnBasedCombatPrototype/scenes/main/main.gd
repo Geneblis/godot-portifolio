@@ -30,7 +30,7 @@ func _ready():
 		scenes_to_instantiate = scenes_to_instantiate.slice(0, MAX_UNITS)
 	var soldiers: Array[Node2D] = []
 	for scene in scenes_to_instantiate:
-		var unit = scene.instantiate() as Node2D
+		var unit = scene.instantiate()
 		soldiers.append(unit)
 
 	# --- Inimigo ---
@@ -39,7 +39,7 @@ func _ready():
 		scenes_to_instantiate = scenes_to_instantiate.slice(0, MAX_UNITS)
 	var enemies: Array[Node2D] = []
 	for scene in scenes_to_instantiate:
-		var unit = scene.instantiate() as Node2D
+		var unit = scene.instantiate()
 		enemies.append(unit)
 
 	# Posiciona e popula o grid do jogador à esquerda

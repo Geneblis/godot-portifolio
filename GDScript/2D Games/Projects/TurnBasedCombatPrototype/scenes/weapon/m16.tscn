@@ -8,6 +8,7 @@ script = ExtResource("1_sn4f5")
 weapon_name = "M16A2"
 weapon_type = 1
 damage = 15
+rating = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 1, 1, 1)

@@ -8,11 +8,14 @@ class_name WeaponClass
 
 # ENUM para tipos de arma
 enum WeaponType { SMALL, MEDIUM, LARGE }
+enum Rating { E, D, C, B, A, S }
 
 # Propriedades exportadas
+
 @export var weapon_name: String = ""
 @export var weapon_type: WeaponType = WeaponType.SMALL
 @export var damage: int = 10
+@export var rating: Rating = Rating.C
 
 # Referência ao nó Sprite2D interno
 @onready var icon: Sprite2D = $Sprite2D

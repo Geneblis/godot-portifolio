@@ -1,115 +1,147 @@
 # GameHandler.gd
 #----------------------------------------------
-# Controla a ordem de turnos e seleção de unidades
-# via dado de 8 lados (roll 1–8). É filho de Main,
-# e referencia PlayerGrid e EnemyGrid como irmãos.
+# Controla turnos e ataques entre unidades em grids 4x2
 #----------------------------------------------
 extends Node2D
 class_name GameHandler
 
-# Paths para os grids (ajuste no Inspector)
+# Paths para os grids (configurar no Inspector)
 @export var player_grid_path: NodePath
-@export var enemy_grid_path: NodePath
+@export var enemy_grid_path:  NodePath
 
-# Referências aos grids instanciados
+# Referências aos grids
 var player_grid: Node2D
-var enemy_grid: Node2D
+var enemy_grid:  Node2D
 
-# Enum para turno atual
+# Turnos
 enum Turn { PLAYER, ENEMY }
 var current_turn: Turn
 
+# Número de colunas na linha de frente
+const COLUMNS := 2
+
+# Inicia o handler (chamar de Main.gd)
 func begin_game() -> void:
 	randomize()
-	
-	# Resolvendo referências aos grids
 	player_grid = get_node(player_grid_path)
 	enemy_grid  = get_node(enemy_grid_path)
-	# Decide quem começa e inicia
-	_decide_first_turn()
+	decide_first_turn()
 
-# Escolhe aleatoriamente quem começa: PLAYER ou ENEMY
-func _decide_first_turn() -> void:
+# Decide quem começa e inicia primeiro turno
+func decide_first_turn() -> void:
 	if randi() % 2 == 1:
 		current_turn = Turn.PLAYER
 	else:
 		current_turn = Turn.ENEMY
-	_start_turn()
+	start_turn()
 
-# Inicia o turno atual
-func _start_turn() -> void:
-	match current_turn:
-		Turn.PLAYER:
-			print("=== Turno do Jogador ===")
-			_take_turn(player_grid)
-		Turn.ENEMY:
-			print("=== Turno do Inimigo ===")
-			_take_turn(enemy_grid)
+# Executa o turno atual
+func start_turn() -> void:
+	if current_turn == Turn.PLAYER:
+		print("=== Turno do Jogador ===")
+		perform_turn(player_grid)
+	else:
+		print("=== Turno do Inimigo ===")
+		perform_turn(enemy_grid)
 
-func _take_turn(grid: Node2D) -> void: # Roda o dado de 1 a 8 até achar uma unidade viva para atuar
-	var units = grid.get_children()
-	var selected: Node2D = null
-	
-	# Verifica se há pelo menos um vivo
-
-	var has_alive := false
-	for u in units:
-		if u.has_method("is_alive") and u.is_alive():
-			has_alive = true
-			break
-
-	if not has_alive:
-		print("Nenhuma unidade viva no grid. Pulando turno.")
-		_end_turn()
+# Seleciona unidade válida e executa ataque
+func perform_turn(grid: Node2D) -> void:
+	# Filtra unidades vivas e do tipo correto
+	var candidates := []
+	for u in grid.get_children():
+		if (u is UnitSoldierClass or u is UnitMechaClass) and u.is_alive():
+			candidates.append(u)
+	# Se não há candidatos, pula o turno
+	if candidates.size() == 0:
+		print("Nenhuma unidade viva. Pulando turno.")
+		end_turn()
 		return
+	# Escolhe randomicamente um
+	var selected = candidates[randi() % candidates.size()]
+	print("Selecionado: %s" % selected.name)
 
-	while selected == null:
-		var roll = (randi() % 8)
-		if roll < units.size():
-			var candidate = units[roll]
-			if candidate.has_method("is_alive") and candidate.is_alive():
-				selected = candidate
-				print("Rolagem: %d -> selecionou %s" % [roll + 1, selected.name])
-				break
+	# Ataque se tiver arma
+	if selected.weapons_data.size() > 0:
+		# Instancia arma
+		var weapon_scene = selected.weapons_data[randi() % selected.weapons_data.size()]
+		var weapon_node = weapon_scene.instantiate()
+		# Cálculo de dano
+		var mult_soldier = get_precision_factor(selected.rating)
+		var mult_weapon  = get_precision_factor(weapon_node.rating)
+		var damage = int((mult_soldier + mult_weapon) * weapon_node.damage)
+		# Escolhe alvo
+		var target = choose_front_target(grid)
+		if target:
+			var roll = randi() % 6 + 1
+			var threshold = selected.rating + 1
+			if roll <= threshold:
+				target.apply_damage(damage)
+				print("%s → %s com %s: dano %d (roll %d<=%d). HP:%d" % [
+					selected.name, target.name, weapon_node.weapon_name,
+					damage, roll, threshold, target.hp])
+			else:
+				print("%s errou %s com %s (roll %d>%d)" % [
+					selected.name, target.name, weapon_node.weapon_name, roll, threshold])
+	else:
+		print("%s sem arma para atacar" % selected.name)
 
-	# Aqui você NÃO deve chamar _end_turn() ainda
-	# Você deve esperar o selected tomar uma ação,
-	# e depois chamar _end_turn() dentro dessa ação.
-	# Por enquanto, simule isso com um pequeno delay:
-
+	# Delay e fim de turno
 	await get_tree().create_timer(0.5).timeout
-	_end_turn()
-	
+	end_turn()
 
-# Final de um turno: alterna e chama o próximo
-func _end_turn() -> void:
+# Alterna turno e verifica fim de combate
+func end_turn() -> void:
 	if current_turn == Turn.PLAYER:
 		current_turn = Turn.ENEMY
 	else:
 		current_turn = Turn.PLAYER
-
-	# Checa vitória/derrota
-	if _check_end_condition():
+	if check_end_condition():
 		return
-	# Continua o loop de turnos
-	_start_turn()
+	start_turn()
 
-# Retorna true se o combate acabou
-func _check_end_condition() -> bool:
-	# Verifica se um lado não tem mais unidades vivas
-	var player_alive = _any_alive(player_grid)
-	var enemy_alive  = _any_alive(enemy_grid)
-	if not player_alive:
-		print("🚩 Todos os soldados do jogador foram eliminados!")
+# Verifica vitória/derrota
+func check_end_condition() -> bool:
+	if not any_alive(player_grid):
+		print("🚩 Jogador derrotado!")
 		return true
-	if not enemy_alive:
-		print("🏆 Todos os inimigos foram derrotados!")
+	if not any_alive(enemy_grid):
+		print("🏆 Inimigos derrotados!")
 		return true
 	return false
 
-# Helper: existe algum filho vivo com is_alive()==true?
-func _any_alive(grid: Node2D) -> bool:
+# Verifica se há unidade viva no grid
+func any_alive(grid: Node2D) -> bool:
 	for u in grid.get_children():
-		if u.has_method("is_alive") and u.is_alive():
+		if (u is UnitSoldierClass or u is UnitMechaClass) and u.is_alive():
 			return true
 	return false
+
+# Seleciona alvo na linha de frente ou próximo
+func choose_front_target(attacker_grid: Node2D) -> Node2D:
+	var defenders := []
+	if attacker_grid == player_grid:
+		defenders = enemy_grid.get_children()
+	else:
+		defenders = player_grid.get_children()
+	var front := []
+	for i in range(min(defenders.size(), COLUMNS)):
+		if defenders[i].is_alive():
+			front.append(defenders[i])
+	if front.size() == 0:
+		for dv in defenders:
+			if dv.is_alive():
+				front.append(dv)
+	if front.size() == 0:
+		return null
+	return front[randi() % front.size()]
+
+# Fator de precisão por rating
+func get_precision_factor(r: int) -> float:
+	match r:
+		UnitSoldierClass.Rating.E: return 0.25
+		UnitSoldierClass.Rating.D: return 0.4
+		UnitSoldierClass.Rating.C: return 0.6
+		UnitSoldierClass.Rating.B: return 0.78
+		UnitSoldierClass.Rating.A: return 0.9
+		UnitSoldierClass.Rating.S: return 1.1
+	return 1.0
