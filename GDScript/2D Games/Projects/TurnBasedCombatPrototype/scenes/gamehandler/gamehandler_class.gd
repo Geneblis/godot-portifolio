@@ -17,9 +17,6 @@ var enemy_grid:  Node2D
 enum Turn { PLAYER, ENEMY }
 var current_turn: Turn
 
-# Número de colunas na linha de frente
-const COLUMNS := 2
-
 # Inicia o handler (chamar de Main.gd)
 func begin_game() -> void:
 	randomize()
@@ -27,7 +24,7 @@ func begin_game() -> void:
 	enemy_grid  = get_node(enemy_grid_path)
 	decide_first_turn()
 
-# Decide quem começa e inicia primeiro turno
+# Decide quem começa e inicia o primeiro turno
 func decide_first_turn() -> void:
 	if randi() % 2 == 1:
 		current_turn = Turn.PLAYER
@@ -46,30 +43,24 @@ func start_turn() -> void:
 
 # Seleciona unidade válida e executa ataque
 func perform_turn(grid: Node2D) -> void:
-	# Filtra unidades vivas e do tipo correto
 	var candidates := []
 	for u in grid.get_children():
 		if (u is UnitSoldierClass or u is UnitMechaClass) and u.is_alive():
 			candidates.append(u)
-	# Se não há candidatos, pula o turno
 	if candidates.size() == 0:
 		print("Nenhuma unidade viva. Pulando turno.")
 		end_turn()
 		return
-	# Escolhe randomicamente um
 	var selected = candidates[randi() % candidates.size()]
 	print("Selecionado: %s" % selected.name)
 
 	# Ataque se tiver arma
 	if selected.weapons_data.size() > 0:
-		# Instancia arma
 		var weapon_scene = selected.weapons_data[randi() % selected.weapons_data.size()]
 		var weapon_node = weapon_scene.instantiate()
-		# Cálculo de dano
 		var mult_soldier = get_precision_factor(selected.rating)
 		var mult_weapon  = get_precision_factor(weapon_node.rating)
 		var damage = int((mult_soldier + mult_weapon) * weapon_node.damage)
-		# Escolhe alvo
 		var target = choose_front_target(grid)
 		if target:
 			var roll = randi() % 6 + 1
@@ -85,7 +76,6 @@ func perform_turn(grid: Node2D) -> void:
 	else:
 		print("%s sem arma para atacar" % selected.name)
 
-	# Delay e fim de turno
 	await get_tree().create_timer(0.5).timeout
 	end_turn()
 
@@ -116,17 +106,26 @@ func any_alive(grid: Node2D) -> bool:
 			return true
 	return false
 
-# Seleciona alvo na linha de frente ou próximo
+# Seleciona alvo na linha de frente usando configurações do UnitGrid
 func choose_front_target(attacker_grid: Node2D) -> Node2D:
+	# Converte para UnitGrid para ler columns/rows
+	var grid_node = attacker_grid as UnitGrid
+	var columns = grid_node.columns
+	var rows = grid_node.rows
+	# Define defensores como filhos do grid oposto
 	var defenders := []
 	if attacker_grid == player_grid:
 		defenders = enemy_grid.get_children()
 	else:
 		defenders = player_grid.get_children()
+	
+	# Linha de frente: primeira coluna (coluna 0) em cada linha
 	var front := []
-	for i in range(min(defenders.size(), COLUMNS)):
-		if defenders[i].is_alive():
-			front.append(defenders[i])
+	for row in range(rows):
+		var idx = row * columns
+		if idx < defenders.size() and defenders[idx].is_alive():
+			front.append(defenders[idx])
+	# Fallback: qualquer vivo
 	if front.size() == 0:
 		for dv in defenders:
 			if dv.is_alive():

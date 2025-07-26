@@ -7,7 +7,6 @@
 [node name="Soldier2" type="Node2D" node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_vqexr")
 nome = "Soldier Two"
-rating = 3
 sprite = NodePath("Sprite2D")
 weapons_data = [ExtResource("2_s6t4b")]
 
