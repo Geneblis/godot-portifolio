@@ -17,14 +17,15 @@ var enemy_grid:  Node2D
 enum Turn { PLAYER, ENEMY }
 var current_turn: Turn
 
-# Inicia o handler (chamar de Main.gd)
 func begin_game() -> void:
 	randomize()
 	player_grid = get_node(player_grid_path)
 	enemy_grid  = get_node(enemy_grid_path)
 	decide_first_turn()
+	
+	player_grid.populate()
+	enemy_grid.populate()
 
-# Decide quem começa e inicia o primeiro turno
 func decide_first_turn() -> void:
 	if randi() % 2 == 1:
 		current_turn = Turn.PLAYER
@@ -32,7 +33,6 @@ func decide_first_turn() -> void:
 		current_turn = Turn.ENEMY
 	start_turn()
 
-# Executa o turno atual
 func start_turn() -> void:
 	if current_turn == Turn.PLAYER:
 		print("=== Turno do Jogador ===")
@@ -41,7 +41,6 @@ func start_turn() -> void:
 		print("=== Turno do Inimigo ===")
 		perform_turn(enemy_grid)
 
-# Seleciona unidade válida e executa ataque
 func perform_turn(grid: Node2D) -> void:
 	var candidates := []
 	for u in grid.get_children():
@@ -54,10 +53,9 @@ func perform_turn(grid: Node2D) -> void:
 	var selected = candidates[randi() % candidates.size()]
 	print("Selecionado: %s" % selected.name)
 
-	# Ataque se tiver arma
 	if selected.weapons_data.size() > 0:
 		var weapon_scene = selected.weapons_data[randi() % selected.weapons_data.size()]
-		var weapon_node = weapon_scene.instantiate()
+		var weapon_node = weapon_scene.instantiate()  # assume é Arma
 		var mult_soldier = get_precision_factor(selected.rating)
 		var mult_weapon  = get_precision_factor(weapon_node.rating)
 		var damage = int((mult_soldier + mult_weapon) * weapon_node.damage)
@@ -79,7 +77,6 @@ func perform_turn(grid: Node2D) -> void:
 	await get_tree().create_timer(0.5).timeout
 	end_turn()
 
-# Alterna turno e verifica fim de combate
 func end_turn() -> void:
 	if current_turn == Turn.PLAYER:
 		current_turn = Turn.ENEMY
@@ -89,7 +86,6 @@ func end_turn() -> void:
 		return
 	start_turn()
 
-# Verifica vitória/derrota
 func check_end_condition() -> bool:
 	if not any_alive(player_grid):
 		print("🚩 Jogador derrotado!")
@@ -99,42 +95,45 @@ func check_end_condition() -> bool:
 		return true
 	return false
 
-# Verifica se há unidade viva no grid
 func any_alive(grid: Node2D) -> bool:
 	for u in grid.get_children():
 		if (u is UnitSoldierClass or u is UnitMechaClass) and u.is_alive():
 			return true
 	return false
 
-# Seleciona alvo na linha de frente usando configurações do UnitGrid
 func choose_front_target(attacker_grid: Node2D) -> Node2D:
 	# Converte para UnitGrid para ler columns/rows
 	var grid_node = attacker_grid as UnitGrid
 	var columns = grid_node.columns
 	var rows = grid_node.rows
-	# Define defensores como filhos do grid oposto
+
+	# Pega filhos do grid oposto
 	var defenders := []
 	if attacker_grid == player_grid:
 		defenders = enemy_grid.get_children()
 	else:
 		defenders = player_grid.get_children()
-	
+
 	# Linha de frente: primeira coluna (coluna 0) em cada linha
 	var front := []
 	for row in range(rows):
 		var idx = row * columns
 		if idx < defenders.size() and defenders[idx].is_alive():
 			front.append(defenders[idx])
-	# Fallback: qualquer vivo
+
+	# Fallback: qualquer defensor vivo
 	if front.size() == 0:
 		for dv in defenders:
 			if dv.is_alive():
 				front.append(dv)
+
 	if front.size() == 0:
 		return null
-	return front[randi() % front.size()]
 
-# Fator de precisão por rating
+	# Seleciona aleatoriamente entre os frontais válidos
+	var pick_index = randi() % front.size()
+	return front[pick_index]
+
 func get_precision_factor(r: int) -> float:
 	match r:
 		UnitSoldierClass.Rating.E: return 0.25

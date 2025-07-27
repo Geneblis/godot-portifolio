@@ -1,6 +1,6 @@
 # UnitGrid.gd
 #----------------------------------------------
-# Um container 4x2 para posicionar até 8 unidades (Node2D)
+# Um container MxN para posicionar unidades (Node2D)
 # Pode ser usado para time do jogador (esquerda) e inimigo (direita).
 #----------------------------------------------
 extends Node2D
@@ -8,9 +8,9 @@ class_name UnitGrid
 
 # Quantidade de colunas e linhas
 @export var columns: int = 2
-@export var rows: int = 4
+@export var rows:    int = 4
 
-# Espaçamento entre cells (em pixels)
+# Espaçamento entre células (em pixels)
 @export var cell_size: Vector2 = Vector2(64, 64)
 
 # Margem interna (offset do canto superior esquerdo)
@@ -19,27 +19,46 @@ class_name UnitGrid
 # Lista de unidades (instâncias prontas de Node2D)
 var units: Array[Node2D] = []
 
-# Limpa o grid e posiciona as unidades passadas
-func populate(units_list: Array[Node2D]) -> void:
+func populate() -> void:
+	# Coleta filhos existentes como unidades
+	units = []
+	for u in get_children():
+		if u is Node2D:
+			units.append(u)
+	# Limita ao máximo de cells
+	var max_cells = columns * rows
+	if units.size() > max_cells:
+		units = units.slice(0, max_cells)
+	# Posiciona em row-major
+	for i in range(units.size()):
+		var unit = units[i]
+		var col = i % columns
+		var row = i / columns
+		unit.position = margin + Vector2(col * cell_size.x, row * cell_size.y)
+	# Reordena a árvore de cena para refletir units[]
+	_reorder_children()
+
+# Reordena os filhos na árvore de acordo com units[]
+func _reorder_children() -> void:
+	for unit in units:
+		remove_child(unit)
+	for unit in units:
+		add_child(unit)
+
+# Retorna lista de todas as unidades (row-major order)
+func get_units() -> Array[Node2D]:
+	return units.duplicate()
+
+# Retorna apenas unidades vivas
+func get_alive_units() -> Array[Node2D]:
+	var alive := []
+	for u in units:
+		if u.has_method("is_alive") and u.is_alive():
+			alive.append(u)
+	return alive
+	
+func clear_grid():
 	# Remove filhos antigos
 	for child in get_children():
 		remove_child(child)
 		child.queue_free()
-
-	units = []
-
-	# Adiciona e posiciona até columns * rows unidades
-	var total = min(units_list.size(), columns * rows)
-	for i in range(total):
-		var unit = units_list[i]
-		add_child(unit)
-		units.append(unit)
-		# Cálculo de coluna e linha
-		var col = i % columns
-		var row = i / columns
-		# Define posição relativa a este Node2D
-		unit.position = margin + Vector2(col * cell_size.x, row * cell_size.y)
-
-# Opcional: debug visual do grid no editor
-#func _draw():
-#	draw_style_box(get_stylebox("panel", "WindowDialog"), Rect2(margin, cell_size * Vector2(columns, rows)))
