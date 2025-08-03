@@ -4,5 +4,3 @@
 
 [node name="Health" type="Node"]
 script = ExtResource("1_qtbis")
-
-[node name="DamageTimer" type="Timer" parent="."]

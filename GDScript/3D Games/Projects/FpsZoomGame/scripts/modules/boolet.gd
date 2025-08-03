@@ -14,12 +14,10 @@ func _physics_process(delta):
 	#	translate(direction * speed * delta)
 		
 func _on_body_entered(body):
-	if body.is_in_group("enemy"):
-		body.hp -= damage
-		
 	# placeholder
 	if body.is_in_group("Enemy"):
-		body.died = true
+		body.health_node.apply_damage(damage)
+		print("Vida do alvo: " + str(body.health_node.current_health))
 	queue_free()
 	
 func _on_destroy_timer_timeout() -> void:

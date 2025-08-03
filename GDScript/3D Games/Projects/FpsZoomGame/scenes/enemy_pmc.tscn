@@ -1,10 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://biy8ebr3486c1"]
+[gd_scene load_steps=27 format=3 uid="uid://biy8ebr3486c1"]
 
 [ext_resource type="PackedScene" uid="uid://kclhxantkg5f" path="res://assets/models/enemy_pmc/pmc_enemy.gltf" id="1_dsgyj"]
 [ext_resource type="Script" uid="uid://cyi5x370t5oaf" path="res://scripts/enemy_pmc.gd" id="1_h6qwk"]
 [ext_resource type="PackedScene" uid="uid://bvlolj3jja8cu" path="res://assets/models/weapons/rifles/M4A1.fbx" id="2_sefqk"]
+[ext_resource type="PackedScene" uid="uid://c6ficey7uhyg0" path="res://scenes/modules/health.tscn" id="2_u7u87"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6qwk"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iouud"]
+animation = &"CrouchFlinch"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ijvw4"]
 animation = &"Death1"
@@ -81,7 +85,19 @@ advance_expression = "current_state != STATE.PRONESHOOT"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sk2bm"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state == STATE.HIT"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_euf5w"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "current_state != STATE.HIT"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tr3ej"]
+states/CrouchFlinch/node = SubResource("AnimationNodeAnimation_iouud")
+states/CrouchFlinch/position = Vector2(373, 299)
 states/Death1/node = SubResource("AnimationNodeAnimation_ijvw4")
 states/Death1/position = Vector2(472, 10)
 states/End/position = Vector2(776, 29)
@@ -90,14 +106,14 @@ states/GoingProne/position = Vector2(373, 203)
 states/IdleLoop1/node = SubResource("AnimationNodeAnimation_u7u87")
 states/IdleLoop1/position = Vector2(362, 111)
 "states/ShootingLoop 2/node" = SubResource("AnimationNodeAnimation_6lmf5")
-"states/ShootingLoop 2/position" = Vector2(618, 88)
+"states/ShootingLoop 2/position" = Vector2(631, 94)
 states/Start/position = Vector2(225, 116)
 states/WalkingStandLoop/node = SubResource("AnimationNodeAnimation_ayrlf")
 states/WalkingStandLoop/position = Vector2(575, 203)
-transitions = ["Start", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_ijvw4"), "IdleLoop1", "GoingProne", SubResource("AnimationNodeStateMachineTransition_h6qwk"), "GoingProne", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_6lmf5"), "GoingProne", "ShootingLoop 2", SubResource("AnimationNodeStateMachineTransition_ayrlf"), "GoingProne", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_iouud"), "WalkingStandLoop", "GoingProne", SubResource("AnimationNodeStateMachineTransition_tbaw0"), "IdleLoop1", "Death1", SubResource("AnimationNodeStateMachineTransition_qidmy"), "ShootingLoop 2", "Death1", SubResource("AnimationNodeStateMachineTransition_fgfjy"), "WalkingStandLoop", "Death1", SubResource("AnimationNodeStateMachineTransition_1rvw8"), "GoingProne", "Death1", SubResource("AnimationNodeStateMachineTransition_tr3ej"), "ShootingLoop 2", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_u7u87"), "Death1", "End", SubResource("AnimationNodeStateMachineTransition_3xbpp")]
-graph_offset = Vector2(-49, -15)
+transitions = ["Start", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_ijvw4"), "IdleLoop1", "GoingProne", SubResource("AnimationNodeStateMachineTransition_h6qwk"), "GoingProne", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_6lmf5"), "GoingProne", "ShootingLoop 2", SubResource("AnimationNodeStateMachineTransition_ayrlf"), "GoingProne", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_iouud"), "WalkingStandLoop", "GoingProne", SubResource("AnimationNodeStateMachineTransition_tbaw0"), "IdleLoop1", "Death1", SubResource("AnimationNodeStateMachineTransition_qidmy"), "ShootingLoop 2", "Death1", SubResource("AnimationNodeStateMachineTransition_fgfjy"), "WalkingStandLoop", "Death1", SubResource("AnimationNodeStateMachineTransition_1rvw8"), "GoingProne", "Death1", SubResource("AnimationNodeStateMachineTransition_tr3ej"), "ShootingLoop 2", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_u7u87"), "Death1", "End", SubResource("AnimationNodeStateMachineTransition_3xbpp"), "GoingProne", "CrouchFlinch", SubResource("AnimationNodeStateMachineTransition_sk2bm"), "CrouchFlinch", "GoingProne", SubResource("AnimationNodeStateMachineTransition_euf5w")]
+graph_offset = Vector2(-1340, -19)
 
-[node name="enemy_pmc" type="CharacterBody3D" node_paths=PackedStringArray("model", "sight", "anims", "agent", "animation_tree") groups=["Enemy"]]
+[node name="enemy_pmc" type="CharacterBody3D" node_paths=PackedStringArray("model", "sight", "anims", "agent", "animation_tree", "health_node") groups=["Enemy"]]
 collision_mask = 2
 safe_margin = 0.2
 script = ExtResource("1_h6qwk")
@@ -106,6 +122,10 @@ sight = NodePath("Assets/RayCast3D")
 anims = NodePath("Assets/pmc_enemy/AnimationPlayer")
 agent = NodePath("NavigationAgent3D")
 animation_tree = NodePath("Assets/pmc_enemy/AnimationTree")
+health_node = NodePath("Health")
+
+[node name="Health" parent="." instance=ExtResource("2_u7u87")]
+invincibility_time = 0.1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.730143, -0.0918484)

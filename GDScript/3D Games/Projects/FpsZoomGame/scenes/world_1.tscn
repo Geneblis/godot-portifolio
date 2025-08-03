@@ -91,7 +91,7 @@ shape = SubResource("ConvexPolygonShape3D_4eyuj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 1)
 
 [node name="Hostile" parent="Entities" instance=ExtResource("2_gawm5")]
-transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 19.1703, 3.5, -17.8809)
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -23.2588, 3.13214, -24.0669)
 
 [node name="enemy_pmc" parent="Entities" node_paths=PackedStringArray("target") instance=ExtResource("3_4eyuj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5469, 2.46139, 5.86539)

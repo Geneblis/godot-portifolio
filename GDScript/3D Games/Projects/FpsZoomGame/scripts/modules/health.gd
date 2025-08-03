@@ -1,47 +1,43 @@
 extends Node
 
-var took_damage: bool = false 
 signal char_died
 signal char_changed_health
-var current_health: int
-@export var max_health: int = 100
-@onready var damage_timer: Timer = $DamageTimer
 
-@onready var area_3d: Area3D = $BodyNode/Area3D
+@export var max_health: int = 100
+@export var invincibility_time: float = 1.0  # duração da invencibilidade em segundos
+
+var current_health: int
+var is_invincible: bool = false
 
 func _ready():
-	current_health = max_health  #sets the entity curr health to its max
-	
+	current_health = max_health
+
 func apply_damage(amount: int) -> void:
-	if took_damage == true: #avoids damage while invencible
+	if is_invincible and not current_health <= 0:
 		return
-		
-	if took_damage == false:
-		emit_signal("char_changed_health")
-		damage_timer.start() #timer for invencibility
-		current_health = clamp(current_health - amount, 0, max_health)
-		#print("DEBUG: (DAMAGE) Current health of target: ", current_health )
-		
-		#function for flash anim
-		flash_red()
-		
-		if current_health == 0:
-			_on_died()
-		
-#healing code
+
+	# aplica dano
+	current_health = clamp(current_health - amount, 0, max_health)
+	emit_signal("char_changed_health")
+
+	# dispara flash e invencibilidade
+	await _start_invincibility()
+	
+	if current_health <= 0:
+		emit_signal("char_died")
+
 func apply_heal(amount: int) -> void:
 	current_health = clamp(current_health + amount, 0, max_health)
-	#print("DEBUG: (HEAL) Current health of target: ", current_health)
-	
-func _on_died(): #chama um signal
-	emit_signal("char_died")
-	
-func flash_red(): #sets damage colour 
-	took_damage = true
-	
-func reset_sprite(): #returns to normal
-	pass
-	
-func _on_damage_timer_timeout(): #invencibilitity is over
-	took_damage = false
-	reset_sprite()
+	emit_signal("char_changed_health")
+
+func _start_invincibility() -> void:
+	is_invincible = true
+	#instanciamento do timer
+	var timer = Timer.new()
+	timer.wait_time = invincibility_time
+	timer.one_shot = true
+	add_child(timer)
+	timer.start()
+	await timer.timeout
+	timer.queue_free()
+	is_invincible = false

@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://da6ip25ja1joa" path="res://scenes/auto_rifle.tscn" id="2_g2els"]
 [ext_resource type="Script" uid="uid://cg0qxmkbqbgg3" path="res://scripts/player_weapon_handler.gd" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://m1uu1658ja76" path="res://scripts/player_camera.gd" id="2_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://c6ficey7uhyg0" path="res://scenes/modules/health.tscn" id="2_smehm"]
 [ext_resource type="PackedScene" uid="uid://dhl124q2cb3d5" path="res://scenes/heavy_pistol.tscn" id="4_dqkch"]
-[ext_resource type="Resource" uid="uid://diltv0x1u0owh" path="res://scenes/resources/auto_rifle.tres" id="5_fjrip"]
 [ext_resource type="Script" uid="uid://bux2vaxf5bve1" path="res://scripts/crosshair.gd" id="6_tuyoq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
@@ -16,6 +16,9 @@
 safe_margin = 0.1
 script = ExtResource("1_3vyb7")
 weapon_holder = NodePath("HeadNode/Camera3D/Hand")
+
+[node name="Health" parent="." instance=ExtResource("2_smehm")]
+max_health = 500
 
 [node name="HeadNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.397923, 0)
@@ -30,11 +33,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.216157, 0)
 script = ExtResource("2_qhqgy")
 
 [node name="M4A1" parent="HeadNode/Camera3D/Hand" instance=ExtResource("2_g2els")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.369239, -0.232451, -0.50003)
-stats = ExtResource("5_fjrip")
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.335491, -0.155398, -0.50003)
+visible = false
 
 [node name="heavy_pistol" parent="HeadNode/Camera3D/Hand" instance=ExtResource("4_dqkch")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.370299, -0.224605, -0.51425)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.336551, -0.147552, -0.51425)
 visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -53,6 +56,8 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 1
+
+[node name="UIAnimations" type="AnimationPlayer" parent="UserInterface"]
 
 [node name="Cross" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("RETICLE_LINES", "PLAYER_CONTROLLER")]
 layout_mode = 1

@@ -3,15 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ctgjogha6b7hf"
-path="res://.godot/imported/M4Diffuse.png-5895d1f4fe6d480fd2db063bb5abb5b9.ctex"
+path.s3tc="res://.godot/imported/M4Diffuse.png-5895d1f4fe6d480fd2db063bb5abb5b9.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/models/weapons/M4Diffuse.png"
-dest_files=["res://.godot/imported/M4Diffuse.png-5895d1f4fe6d480fd2db063bb5abb5b9.ctex"]
+dest_files=["res://.godot/imported/M4Diffuse.png-5895d1f4fe6d480fd2db063bb5abb5b9.s3tc.ctex"]
 
 [params]
 
