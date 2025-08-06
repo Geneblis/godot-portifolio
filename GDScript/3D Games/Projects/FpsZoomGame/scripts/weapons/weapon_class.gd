@@ -1,12 +1,13 @@
 extends Node3D
 class_name Weapon3D
 
+@export_category("Bullet Origin")
+@export var marker: Node3D
 @export_category("Configurações")
 @export var stats : Weapon_Base
 @onready var dup_state : Resource = stats.duplicate()
 
 @onready var anim = get_node(dup_state.animation_player) as AnimationPlayer
-@onready var weapon_nose = get_node(dup_state.weapon_nose) as Node3D
 @onready var ray = get_node(dup_state.raycast_node) as RayCast3D
 @onready var muzzle = get_node(dup_state.muzzle) as GPUParticles3D
 @onready var sound = get_node(dup_state.sound_player) as AudioStreamPlayer3D
@@ -48,7 +49,7 @@ func _process(delta):
 			dup_state.current_ammo -= 1
 			print(dup_state["current_ammo"])
 			b.damage = dup_state.damage
-			b.global_transform = weapon_nose.global_transform
+			b.global_transform = marker.global_transform
 			get_tree().current_scene.add_child(b)
 			
 		else:

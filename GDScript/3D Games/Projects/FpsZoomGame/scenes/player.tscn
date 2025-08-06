@@ -32,13 +32,15 @@ head_node = NodePath("..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.216157, 0)
 script = ExtResource("2_qhqgy")
 
-[node name="M4A1" parent="HeadNode/Camera3D/Hand" instance=ExtResource("2_g2els")]
+[node name="M4A1" parent="HeadNode/Camera3D/Hand" node_paths=PackedStringArray("marker") instance=ExtResource("2_g2els")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.335491, -0.155398, -0.50003)
 visible = false
+marker = NodePath("../../..")
 
-[node name="heavy_pistol" parent="HeadNode/Camera3D/Hand" instance=ExtResource("4_dqkch")]
+[node name="heavy_pistol" parent="HeadNode/Camera3D/Hand" node_paths=PackedStringArray("marker") instance=ExtResource("4_dqkch")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.336551, -0.147552, -0.51425)
 visible = false
+marker = NodePath("../../..")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_u8vuu")
@@ -66,9 +68,6 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 9.0
-offset_right = 49.0
-offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_tuyoq")
