@@ -33,7 +33,7 @@ advance_expression = "current_state == STATE.IDLE"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h6qwk"]
 xfade_time = 0.2
 advance_mode = 2
-advance_expression = "current_state == STATE.PRONE"
+advance_expression = "current_state != STATE.IDLE"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6lmf5"]
 xfade_time = 0.2
@@ -111,7 +111,7 @@ states/Start/position = Vector2(225, 116)
 states/WalkingStandLoop/node = SubResource("AnimationNodeAnimation_ayrlf")
 states/WalkingStandLoop/position = Vector2(575, 203)
 transitions = ["Start", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_ijvw4"), "IdleLoop1", "GoingProne", SubResource("AnimationNodeStateMachineTransition_h6qwk"), "GoingProne", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_6lmf5"), "GoingProne", "ShootingLoop 2", SubResource("AnimationNodeStateMachineTransition_ayrlf"), "GoingProne", "IdleLoop1", SubResource("AnimationNodeStateMachineTransition_iouud"), "WalkingStandLoop", "GoingProne", SubResource("AnimationNodeStateMachineTransition_tbaw0"), "IdleLoop1", "Death1", SubResource("AnimationNodeStateMachineTransition_qidmy"), "ShootingLoop 2", "Death1", SubResource("AnimationNodeStateMachineTransition_fgfjy"), "WalkingStandLoop", "Death1", SubResource("AnimationNodeStateMachineTransition_1rvw8"), "GoingProne", "Death1", SubResource("AnimationNodeStateMachineTransition_tr3ej"), "ShootingLoop 2", "WalkingStandLoop", SubResource("AnimationNodeStateMachineTransition_u7u87"), "Death1", "End", SubResource("AnimationNodeStateMachineTransition_3xbpp"), "GoingProne", "CrouchFlinch", SubResource("AnimationNodeStateMachineTransition_sk2bm"), "CrouchFlinch", "GoingProne", SubResource("AnimationNodeStateMachineTransition_euf5w")]
-graph_offset = Vector2(-1340, -19)
+graph_offset = Vector2(-158.17, 40.7201)
 
 [node name="enemy_pmc" type="CharacterBody3D" node_paths=PackedStringArray("model", "sight", "anims", "agent", "animation_tree", "health_node") groups=["Enemy"]]
 collision_mask = 2

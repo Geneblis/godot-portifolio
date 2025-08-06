@@ -57,6 +57,7 @@ func _match_state(new_state: STATE):
 	elif current_state == STATE.HIT:
 		await get_tree().create_timer(1.0).timeout
 		damage_taken = false
+		_match_state(STATE.IDLE)
 	elif current_state == STATE.DEAD:
 		#anims.play("Death1")
 		target_detected = false

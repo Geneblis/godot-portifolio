@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6305vhfdj22n"]
+[gd_scene load_steps=7 format=3 uid="uid://c6305vhfdj22n"]
 
 [ext_resource type="Script" uid="uid://cfp3mbwvqioo8" path="res://scripts/modules/boolet.gd" id="1_rrdbb"]
 
@@ -9,6 +9,23 @@ albedo_color = Color(0.802103, 0.818456, 0, 1)
 emission_enabled = true
 emission = Color(1, 1, 0, 1)
 emission_energy_multiplier = 16.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rrdbb"]
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = 11.5
+gravity = Vector3(0, -12, 0)
+linear_accel_min = 28.74
+linear_accel_max = 50.58
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_li7va"]
+albedo_color = Color(0.672305, 1.81694e-06, 3.85046e-07, 1)
+emission_enabled = true
+emission = Color(0.526793, 1.2153e-06, 3.85046e-07, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_g2sb5"]
+material = SubResource("StandardMaterial3D_li7va")
+size = Vector3(0.1, 0.1, 0.1)
 
 [node name="boolet" type="Node3D"]
 script = ExtResource("1_rrdbb")
@@ -22,11 +39,20 @@ shape = SubResource("CapsuleShape3D_rrdbb")
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00537602, 0.0546816, 0.00784206)
 material_override = SubResource("StandardMaterial3D_d0ej0")
+cast_shadow = 0
 size = Vector3(0.230103, 0.110363, 0.0839539)
 
 [node name="DestroyTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 autostart = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rrdbb")
+draw_pass_1 = SubResource("BoxMesh_g2sb5")
 
 [connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]
