@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6ahr1iolfi5s"]
+
+[ext_resource type="Script" uid="uid://ca4nvhf6mfqbu" path="res://scenes/inventories/inventory.gd" id="1_di0lh"]
+[ext_resource type="Script" uid="uid://dipvqihvpxm00" path="res://scenes/item_class/itemdata.gd" id="2_kdrxo"]
+[ext_resource type="PackedScene" uid="uid://drhslteril4in" path="res://scenes/item_sprites/items_sprites.tscn" id="3_kdrxo"]
+
+[node name="PlayerInv" type="Node"]
+script = ExtResource("1_di0lh")
+metadata/_custom_type_script = "uid://ca4nvhf6mfqbu"
+
+[node name="Helmet" type="Node" parent="." node_paths=PackedStringArray("icon")]
+script = ExtResource("2_kdrxo")
+icon = NodePath("Sprite")
+item_name = "Helmet"
+description = "SimpleHelmet"
+weight = 4.0
+stats = {
+"Protection": 5
+}
+metadata/_custom_type_script = "uid://dipvqihvpxm00"
+
+[node name="Sprite" parent="Helmet" instance=ExtResource("3_kdrxo")]
+visible = false
+frame = 7
+
+[node name="Shield" type="Node" parent="." node_paths=PackedStringArray("icon")]
+script = ExtResource("2_kdrxo")
+icon = NodePath("Sprite")
+item_name = "Shield"
+description = "A Simple Wooden Shield"
+weight = 8.0
+stats = {
+"Protection": 10
+}
+metadata/_custom_type_script = "uid://dipvqihvpxm00"
+
+[node name="Sprite" parent="Shield" instance=ExtResource("3_kdrxo")]
+visible = false
+frame = 18

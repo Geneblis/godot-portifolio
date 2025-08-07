@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://hycacsio874m"]
+[gd_scene load_steps=11 format=3 uid="uid://hycacsio874m"]
 
 [ext_resource type="Script" uid="uid://cqv5exw0v88p3" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://da6ip25ja1joa" path="res://scenes/auto_rifle.tscn" id="2_g2els"]
 [ext_resource type="Script" uid="uid://cg0qxmkbqbgg3" path="res://scripts/player_weapon_handler.gd" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://m1uu1658ja76" path="res://scripts/player_camera.gd" id="2_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://c6ficey7uhyg0" path="res://scenes/modules/health.tscn" id="2_smehm"]
+[ext_resource type="Script" uid="uid://djd303wrjiquy" path="res://scripts/modules/save_stats_script.gd" id="2_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://dhl124q2cb3d5" path="res://scenes/heavy_pistol.tscn" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://bux2vaxf5bve1" path="res://scripts/crosshair.gd" id="6_tuyoq"]
 
@@ -16,6 +17,11 @@
 safe_margin = 0.1
 script = ExtResource("1_3vyb7")
 weapon_holder = NodePath("HeadNode/Camera3D/Hand")
+
+[node name="SaveSystem" type="Node" parent="." node_paths=PackedStringArray("hand")]
+script = ExtResource("2_ur7pv")
+hand = NodePath("../HeadNode/Camera3D/Hand")
+metadata/_custom_type_script = "uid://djd303wrjiquy"
 
 [node name="Health" parent="." instance=ExtResource("2_smehm")]
 max_health = 500

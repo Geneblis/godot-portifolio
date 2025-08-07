@@ -18,8 +18,7 @@ func _on_body_entered(body):
 		body.health_node.apply_damage(damage)
 		print("Vida do alvo: " + str(body.health_node.current_health))
 		blood.emitting = true
-		speed = 0
-		mesh.queue_free()
+		#tem q desativar a colisão ou somethin
 		await get_tree().create_timer(1.0).timeout
 		queue_free()
 	

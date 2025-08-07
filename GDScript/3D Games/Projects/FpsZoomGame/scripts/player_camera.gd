@@ -1,4 +1,5 @@
 extends Camera3D
+##Esse sistema tem a unica responsabilidade para recoil visual.
 
 var max_recoil_degrees: float =  40.0
 var _base_rotation: Vector3 = Vector3.ZERO

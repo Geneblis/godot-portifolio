@@ -32,12 +32,5 @@ func apply_heal(amount: int) -> void:
 
 func _start_invincibility() -> void:
 	is_invincible = true
-	#instanciamento do timer
-	var timer = Timer.new()
-	timer.wait_time = invincibility_time
-	timer.one_shot = true
-	add_child(timer)
-	timer.start()
-	await timer.timeout
-	timer.queue_free()
+	await get_tree().create_timer(invincibility_time).timeout
 	is_invincible = false
