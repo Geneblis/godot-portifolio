@@ -161,4 +161,13 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
+[node name="DebugStates" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.07684, 0)
+billboard = 1
+
+[node name="DebugFlags" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94306, 0)
+billboard = 1
+font_size = 26
+
 [editable path="Assets/pmc_enemy"]
