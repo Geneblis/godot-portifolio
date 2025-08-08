@@ -55,15 +55,16 @@ func _match_state(new_state: STATE):
 			t.timeout.connect(_on_shot_timer_timeout)
 			
 	elif current_state == STATE.HIT:
+		crouching = false
 		await get_tree().create_timer(1.0).timeout
 		damage_taken = false
-		_match_state(STATE.IDLE)
+		
 	elif current_state == STATE.DEAD:
-		#anims.play("Death1")
 		target_detected = false
 		seeing = false
 		died = true
-		await get_tree().create_timer(2.0).timeout
+		damage_taken = true
+		await get_tree().create_timer(1.9).timeout
 		queue_free()
 
 func _physics_process(delta: float) -> void:
@@ -91,15 +92,16 @@ func _physics_process(delta: float) -> void:
 		seeing = false
 
 	# if player was spotted
-	if target_detected and not died and not damage_taken:
+	if target_detected and not damage_taken:
 		if seeing and not crouching:
 			rotate_y(sight.rotation.y * delta * 40)
 			_match_state(STATE.PRONE)
 			velocity = Vector3.ZERO
 
+		# perdeu o player de vista mas ainda esta crouching
 		elif not seeing and crouching:
 			crouching = false
-			velocity = Vector3.ZERO
+			velocity = Vector3.ZERO #fazer um lerp/tween pra dininuir da velocidade atual para 0.
 
 		elif seeing and crouching:
 			rotate_y(sight.rotation.y * delta * 40)
