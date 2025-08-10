@@ -86,20 +86,16 @@ func _start_prone_shoot_cycle() -> void:
 	if shot_scheduled:
 		return
 	shot_scheduled = true
-	# ciclo de tempo aleatório (não bloqueia o jogo)
-	# aguardamos sem usar connect/ signals
 	var delay = randf_range(1.0, 2.0)
 	await get_tree().create_timer(delay).timeout
-	# ao acordar, verifique se ainda faz sentido atirar
 	if not (current_state == STATE.PRONESHOOT and seeing and not damage_taken and not died):
 		shot_scheduled = false
 		return
-	# realiza o tiro
 	_perform_prone_shot()
 	shot_scheduled = false
-	# opcional: se quiser disparos repetidos, você pode re-entrar no ciclo:
-	# if current_state == STATE.PRONESHOOT:
-	#     _start_prone_shoot_cycle()
+	 
+	if current_state == STATE.PRONESHOOT:
+		_start_prone_shoot_cycle()
 
 func _perform_prone_shot() -> void:
 	# força atualizar o raycast

@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c6ficey7uhyg0" path="res://scenes/modules/health.tscn" id="2_u7u87"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6qwk"]
+radius = 0.42623
+height = 2.47113
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iouud"]
 animation = &"CrouchFlinch"
@@ -128,7 +130,7 @@ health_node = NodePath("Health")
 invincibility_time = 0.1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.730143, -0.0918484)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.881042, -0.00312287)
 shape = SubResource("CapsuleShape3D_h6qwk")
 
 [node name="Assets" type="Node3D" parent="."]
