@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://da6ip25ja1joa" path="res://scenes/auto_rifle.tscn" id="2_g2els"]
 [ext_resource type="Script" uid="uid://cg0qxmkbqbgg3" path="res://scripts/player_weapon_handler.gd" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://m1uu1658ja76" path="res://scripts/player_camera.gd" id="2_qlg0r"]
-[ext_resource type="PackedScene" uid="uid://c6ficey7uhyg0" path="res://scenes/modules/health.tscn" id="2_smehm"]
 [ext_resource type="Script" uid="uid://djd303wrjiquy" path="res://scripts/modules/save_stats_script.gd" id="2_ur7pv"]
+[ext_resource type="Script" uid="uid://c3grf67vaa1mn" path="res://scripts/modules/health.gd" id="3_smehm"]
 [ext_resource type="PackedScene" uid="uid://dhl124q2cb3d5" path="res://scenes/heavy_pistol.tscn" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://bux2vaxf5bve1" path="res://scripts/crosshair.gd" id="6_tuyoq"]
 
@@ -13,18 +13,22 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqkch"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("weapon_holder") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head", "cam", "hand") groups=["Player"]]
 safe_margin = 0.1
 script = ExtResource("1_3vyb7")
-weapon_holder = NodePath("HeadNode/Camera3D/Hand")
+head = NodePath("HeadNode")
+cam = NodePath("HeadNode/Camera3D")
+hand = NodePath("HeadNode/Camera3D/Hand")
 
 [node name="SaveSystem" type="Node" parent="." node_paths=PackedStringArray("hand")]
 script = ExtResource("2_ur7pv")
 hand = NodePath("../HeadNode/Camera3D/Hand")
 metadata/_custom_type_script = "uid://djd303wrjiquy"
 
-[node name="Health" parent="." instance=ExtResource("2_smehm")]
-max_health = 500
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_smehm")
+invincibility_time = 0.25
+metadata/_custom_type_script = "uid://c3grf67vaa1mn"
 
 [node name="HeadNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.397923, 0)

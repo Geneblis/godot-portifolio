@@ -1,4 +1,5 @@
 extends Node
+class_name Health
 
 signal char_died
 signal char_changed_health

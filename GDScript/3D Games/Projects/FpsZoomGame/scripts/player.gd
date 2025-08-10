@@ -1,14 +1,15 @@
 extends CharacterBody3D
 
-@onready var head = $HeadNode
-@onready var cam  = $HeadNode/Camera3D
-@onready var hand: Node3D = $HeadNode/Camera3D/Hand
+@export_category("Player's Definitions")
+@export var head: Node3D
+@export var cam: Camera3D
+@export var hand: Node3D
 
 const MOUSE_SENSIVITY = 0.2
 const GRAVITY = 10
-const JUMP_SPEED = 4
-const SPEED = 7.0
-const ACCEL = 8.0
+const JUMP_SPEED = 5
+const ACCEL = 3.5
+var SPEED: float = 7.0
 
 #starting values
 var currentvel = Vector3.ZERO
@@ -17,12 +18,11 @@ var mouse_locked = true
 var mouse_input : Vector2
 
 #viewbob
-const BOB_FREQ = 1.8
+const BOB_FREQ = 2.0
 const BOB_AMP = 0.05
 var bob_speed = 0.0 
 
 #weaponsway
-@export var weapon_holder: Node3D
 var def_weapon_holder_pos: Vector3
 var weapon_sway_amount: float = 1.25
 var weapon_rotation_amount: float = 0.2
@@ -31,7 +31,7 @@ var cam_rotation_amount: float = 0.175
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	def_weapon_holder_pos = weapon_holder.position
+	def_weapon_holder_pos = hand.position
 #	end
 
 func _physics_process(delta: float) -> void:
@@ -91,16 +91,16 @@ func headbob(speed): #begin
 #	end
 
 func tilt(inputx, delta):
-	if weapon_holder:
-		weapon_holder.rotation.z = lerp(weapon_holder.rotation.z, -inputx * weapon_rotation_amount, 10 * delta)
+	if hand:
+		hand.rotation.z = lerp(hand.rotation.z, -inputx * weapon_rotation_amount, 10 * delta)
 	if cam:
 		cam.rotation.z = lerp(head.rotation.z, -inputx * cam_rotation_amount, 10 * delta)
 
 func sway(delta):
-	if weapon_holder:
+	if hand:
 		mouse_input = lerp(mouse_input,Vector2.ZERO,10*delta)
-		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, mouse_input.y * 
+		hand.rotation.x = lerp(hand.rotation.x, mouse_input.y * 
 		(weapon_rotation_amount/16), 10 * delta)
-		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, mouse_input.x * 
+		hand.rotation.y = lerp(hand.rotation.y, mouse_input.x * 
 		(weapon_rotation_amount/16), 10 * delta)
 #endregion

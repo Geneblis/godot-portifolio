@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://kclhxantkg5f" path="res://assets/models/enemy_pmc/pmc_enemy.gltf" id="1_dsgyj"]
 [ext_resource type="Script" uid="uid://cyi5x370t5oaf" path="res://scripts/enemy_pmc.gd" id="1_h6qwk"]
 [ext_resource type="PackedScene" uid="uid://bvlolj3jja8cu" path="res://assets/models/weapons/rifles/M4A1.fbx" id="2_sefqk"]
-[ext_resource type="PackedScene" uid="uid://c6ficey7uhyg0" path="res://scenes/modules/health.tscn" id="2_u7u87"]
+[ext_resource type="Script" uid="uid://c3grf67vaa1mn" path="res://scripts/modules/health.gd" id="2_u7u87"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6qwk"]
 radius = 0.42623
@@ -126,8 +126,10 @@ agent = NodePath("NavigationAgent3D")
 animation_tree = NodePath("Assets/pmc_enemy/AnimationTree")
 health_node = NodePath("Health")
 
-[node name="Health" parent="." instance=ExtResource("2_u7u87")]
-invincibility_time = 0.1
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_u7u87")
+invincibility_time = 0.15
+metadata/_custom_type_script = "uid://c3grf67vaa1mn"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.881042, -0.00312287)
