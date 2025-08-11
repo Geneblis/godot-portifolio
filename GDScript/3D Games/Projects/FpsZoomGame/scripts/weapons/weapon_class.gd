@@ -16,6 +16,7 @@ class_name Weapon3D
 var randomMuzzlePos = randf_range(0, 180)
 
 var can_shoot = false
+signal weapon_fired
 
 func _ready() -> void:
 	sound.stream = dup_state.shoot_sounds
@@ -37,6 +38,7 @@ func _process(delta):
 			print(dup_state["reserve_ammo"])
 		
 	if Input.is_action_pressed("shoot") and can_shoot and not anim.is_playing() and dup_state.current_ammo > 0:
+		weapon_fired.emit()
 		anim.play("shoot")
 		sound.play()
 		can_shoot = false

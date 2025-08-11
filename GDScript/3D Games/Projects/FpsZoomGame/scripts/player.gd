@@ -1,4 +1,9 @@
 extends CharacterBody3D
+## Funcionalidade Única de fornecer controle de movimento e input do mouse.
+## - Estrutura da câmera:
+## - - HeadNode: Converte input do mouse em rotação da câmera.
+## - - CameraHandler: Aplica recoil visual e define o ponto de spawn das balas.
+## - - Hand: Controla as armas e armazena o arsenal inicial do jogador.
 
 @export_category("Player's Definitions")
 @export var head: Node3D
