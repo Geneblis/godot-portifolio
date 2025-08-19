@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dp681jnnii3j"]
+[gd_scene load_steps=8 format=3 uid="uid://dp681jnnii3j"]
 
 [ext_resource type="Texture2D" uid="uid://c3x7qppyxpr7w" path="res://assets/textures/kenney_prototype-textures/PNG/Green/texture_03.png" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://cf7brgwaxlmud" path="res://addons/3d_rts_camera/rtscam.tscn" id="2_rwgxs"]
+[ext_resource type="Script" uid="uid://ddluk7q1s5rsp" path="res://scenes/world/scripts/unit_selector.gd" id="3_4wyf3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rwgxs"]
 sky_top_color = Color(0.609633, 0.546213, 0.257182, 1)
@@ -26,6 +27,7 @@ uv2_triplanar = true
 
 [node name="RTScamera" parent="." instance=ExtResource("2_rwgxs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+camera_zoom_max = 20.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-1, 7.83056e-08, -3.88712e-08, 0, 0.444635, 0.895712, 8.74228e-08, 0.895712, -0.444635, 0, 0, 0)
@@ -38,3 +40,10 @@ environment = SubResource("Environment_k0juu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0223484, 0.0275406, -0.0344689)
 size = Vector3(5, 1, 5)
 material = SubResource("StandardMaterial3D_rwgxs")
+
+[node name="UnitSelector" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_4wyf3")
