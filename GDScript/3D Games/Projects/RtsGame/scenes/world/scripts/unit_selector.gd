@@ -33,7 +33,7 @@ func _draw() -> void:
 
 func update_selected_units():
 	for unit in get_tree().\
-		get_nodes_in_group("selectable-units"):
+		get_nodes_in_group("controllable"):
 		if unit.is_in_selection_box(select_box):
 			unit.select()
 		else:
