@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8nyf25wrwidy"]
+
+[ext_resource type="Script" uid="uid://cx8hnufqit7ak" path="res://scripts/modules/weapon_drop.gd" id="1_magd4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ua6v7"]
+albedo_color = Color(1, 0.513726, 0, 1)
+metallic = 1.0
+metallic_specular = 0.0
+refraction_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_vxjow"]
+material = SubResource("StandardMaterial3D_ua6v7")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gtknk"]
+
+[node name="WeaponDrop" type="Node3D" node_paths=PackedStringArray("CollisionArea", "WeaponLabel")]
+script = ExtResource("1_magd4")
+CollisionArea = NodePath("Area3D")
+WeaponLabel = NodePath("WeaponName")
+
+[node name="WeaponName" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705113, 0)
+billboard = 1
+double_sided = false
+text = "aaaa"
+uppercase = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_vxjow")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_gtknk")
+debug_color = Color(0.850128, 0.000885606, 0.899693, 0.42)

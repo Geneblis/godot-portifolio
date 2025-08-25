@@ -35,7 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.397923, 0)
 
 [node name="CameraHandler" type="Node3D" parent="HeadNode" node_paths=PackedStringArray("weapons")]
 script = ExtResource("4_smehm")
-recoil = Vector3(1, 0.2, 0)
+recoil = Vector3(1, 0.25, 0)
 snappiness = 2.0
 weapons = NodePath("Camera3D/Hand")
 

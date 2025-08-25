@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://ckgrjtvq6fl5h"]
+[gd_scene load_steps=20 format=3 uid="uid://ckgrjtvq6fl5h"]
 
 [ext_resource type="PackedScene" uid="uid://hycacsio874m" path="res://scenes/player.tscn" id="1_5lqpt"]
 [ext_resource type="PackedScene" uid="uid://pi1l7j5o5ado" path="res://scenes/hostile.tscn" id="2_gawm5"]
 [ext_resource type="PackedScene" uid="uid://biy8ebr3486c1" path="res://scenes/enemy_pmc.tscn" id="3_4eyuj"]
 [ext_resource type="Script" uid="uid://b44p3rofgr0gk" path="res://scripts/enemy_spawner.gd" id="4_cmxnd"]
+[ext_resource type="PackedScene" uid="uid://c8nyf25wrwidy" path="res://scenes/weapon_drop.tscn" id="5_kwwa1"]
+[ext_resource type="PackedScene" uid="uid://da6ip25ja1joa" path="res://scenes/auto_rifle.tscn" id="6_77kw0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5lqpt"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -53,6 +55,12 @@ points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5
 
 [node name="world_1" type="Node3D"]
 script = ExtResource("4_cmxnd")
+
+[node name="WeaponDrops" type="Node" parent="."]
+
+[node name="WeaponDrop" parent="WeaponDrops" instance=ExtResource("5_kwwa1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.88404, 3, 11.1309)
+Weapon = ExtResource("6_77kw0")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4eyuj")

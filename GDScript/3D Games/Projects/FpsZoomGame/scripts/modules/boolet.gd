@@ -14,13 +14,20 @@ func _physics_process(delta):
 	position += transform.basis * Vector3(0, 0, -speed) * delta
 	
 func _on_body_entered(body):
+	_disable_bullet()
+	
 	if body.is_in_group("Enemy"):
 		body.health_node.apply_damage(damage)
 		print("Vida do alvo: " + str(body.health_node.current_health))
 		blood.emitting = true
-		#tem q desativar a colisão ou somethin
 		await get_tree().create_timer(1.0).timeout
 		queue_free()
 	
+	
+func _disable_bullet() -> void:
+	speed = 0
+	collArea.queue_free()
+	mesh.queue_free()
+
 func _on_destroy_timer_timeout() -> void:
 	queue_free()
